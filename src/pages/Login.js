@@ -31,7 +31,7 @@ const Login = () => {
           password,
         };
         const response = await AuthService.login(credentials);
-        console.log(JSON.stringify(response?.data.user));
+        // console.log(JSON.stringify(response?.data.user));
         const token = response.data.token;
         const name = response.data.user.name;
         const userId = response.data.user.userId;

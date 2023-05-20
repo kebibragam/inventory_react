@@ -23,7 +23,7 @@ import ProtectedRoute from "./pages/ProtectedRoute";
 import { useGlobalContext } from "./context/AuthContext";
 
 http.defaults.baseURL =
-  process.env.REACT_APP_BASE_URL || "http://localhost:5000/api/v1 ";
+  process.env.REACT_APP_BASE_URL || "http://localhost:5000/api/v1";
 
 function App() {
   const { user } = useGlobalContext();

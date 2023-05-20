@@ -7,22 +7,25 @@ import { useGlobalContext } from "../context/AuthContext";
 const ProtectedRoute = ({ children }) => {
   const { addUser, user } = useGlobalContext();
   useEffect(() => {
-    http
-      .get("/auth/isAuthenticated")
-      .then((res) => {
-        // console.log(res);
-        if (res.data.msg === true) {
-          console.log(res.data);
-          addUser(res.data.user);
-        } else {
+    const fetchUser = async () => {
+      return await http
+        .get("/auth/isAuthenticated")
+        .then((res) => {
+          // console.log(res);
+          if (res.data.msg === true) {
+            // console.log(res.data);
+            return addUser(res.data.user);
+          } else {
+            return false;
+          }
+        })
+        .catch((err) => {
+          console.log(err);
           return false;
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        return false;
-      });
-  }, [addUser]);
+        });
+    };
+    fetchUser();
+  }, []);
 
   if (!user) {
     return <Navigate to="/login" />;
