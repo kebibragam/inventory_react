@@ -22,7 +22,7 @@ const ProtectedRoute = ({ children }) => {
         console.log(err);
         return false;
       });
-  }, []);
+  });
 
   if (!user) {
     return <Navigate to="/login" />;
