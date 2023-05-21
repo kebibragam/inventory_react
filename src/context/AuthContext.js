@@ -4,9 +4,7 @@ const AuthContext = React.createContext();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-
   const addUser = (data) => {
-    // console.log(data);
     setUser(data);
   };
   const removeUser = () => {
@@ -14,7 +12,7 @@ const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, addUser, removeUser }}>
+    <AuthContext.Provider value={{ user, setUser, addUser, removeUser }}>
       {children}
     </AuthContext.Provider>
   );

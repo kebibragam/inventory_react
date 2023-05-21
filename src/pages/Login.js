@@ -5,7 +5,6 @@ import { useGlobalContext } from "../context/AuthContext";
 
 const Login = () => {
   const { addUser, user } = useGlobalContext();
-
   const userRef = useRef();
 
   const [email, setEmail] = useState("");
