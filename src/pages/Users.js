@@ -21,13 +21,14 @@ const Users = () => {
       <h1>Users</h1>
       {users &&
         users.map((user) => {
-          const { id, name, email } = user;
-
+          const { _id, name, email, role } = user;
+          console.log(user);
           return (
             <>
-              <div key={id}>
-                <h3>{name}</h3>
-                <h4>{email}</h4>
+              <div key={_id}>
+                <h3>Name: {name}</h3>
+                <h4>Email: {email}</h4>
+                <h4>Role: {role}</h4>
               </div>
             </>
           );

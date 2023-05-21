@@ -8,8 +8,8 @@ const Customers = () => {
   const retrieveCustomer = () => {
     CustomerService.getAllCustomers()
       .then((response) => {
-        setCustomer(response.data.Customer);
-        console.log(response.data.Customer);
+        setCustomer(response.data);
+        console.log(response.data);
       })
       .catch((e) => {
         console.log(e);
@@ -25,9 +25,9 @@ const Customers = () => {
           return (
             <>
               <div key={id}>
-                <h3>{name}</h3>
-                <h4>{address}</h4>
-                <h4>{contact}</h4>
+                <h3>Name: {name}</h3>
+                <h4>Address:{address}</h4>
+                <h4>Contact: {contact}</h4>
               </div>
             </>
           );

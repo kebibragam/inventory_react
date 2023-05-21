@@ -44,7 +44,7 @@ const Navbar = () => {
                     aria-current="page"
                     to="/"
                   >
-                    dashboard
+                    Dashboard
                   </NavLink>
                 </li>
                 <li className="nav-item">
@@ -53,7 +53,7 @@ const Navbar = () => {
                     aria-current="page"
                     to="/products"
                   >
-                    products
+                    Products
                   </NavLink>
                 </li>
                 <li className="nav-item">
@@ -62,7 +62,7 @@ const Navbar = () => {
                     aria-current="page"
                     to="/customers"
                   >
-                    customers
+                    Customers
                   </NavLink>
                 </li>
                 <li className="nav-item">
@@ -71,7 +71,7 @@ const Navbar = () => {
                     aria-current="page"
                     to="/orders"
                   >
-                    orders
+                    Orders
                   </NavLink>
                 </li>
                 <li className="nav-item">
@@ -80,7 +80,7 @@ const Navbar = () => {
                     aria-current="page"
                     to="/users"
                   >
-                    users
+                    Users
                   </NavLink>
                 </li>
                 <li className="nav-item">

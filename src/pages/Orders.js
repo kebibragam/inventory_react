@@ -18,14 +18,14 @@ const Orders = () => {
   };
   return (
     <>
-      <h1>OrderS</h1>
+      <h1>Orders</h1>
       {Order &&
         Order.map((product) => {
-          const { id, orderItems, total, customerID, createdAt } = product;
+          const { _id, orderItems, total, customerID, createdAt } = product;
 
           return (
             <>
-              <div key={id}>
+              <div key={_id}>
                 <div>
                   {orderItems.map((item) => {
                     const { name, price, quantity, productID } = item;
