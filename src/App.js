@@ -26,7 +26,14 @@ http.defaults.baseURL =
   process.env.REACT_APP_BASE_URL || "http://localhost:5000/api/v1";
 
 function App() {
-  const { user } = useGlobalContext();
+  const { user, isLoading } = useGlobalContext();
+  if (isLoading) {
+    return (
+      <div class="position-absolute top-50 start-50 translate-middle">
+        <div className="loader"></div>
+      </div>
+    );
+  }
   return (
     <BrowserRouter>
       {user && <Navbar />}
