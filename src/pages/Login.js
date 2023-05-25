@@ -31,10 +31,10 @@ const Login = () => {
         };
         const response = await AuthService.login(credentials);
         // console.log(JSON.stringify(response?.data.user));
-        const token = response.data.token;
-        const name = response.data.user.name;
-        const userId = response.data.user.userId;
-        const role = response.data.user.role;
+        const token = await response.data.token;
+        const name = await response.data.user.name;
+        const userId = await response.data.user.userId;
+        const role = await response.data.user.role;
         addUser({ token, userId, name, role });
         navigate("/");
         setEmail("");
