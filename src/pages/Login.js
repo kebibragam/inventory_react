@@ -29,14 +29,17 @@ const Login = () => {
           email,
           password,
         };
-        const response = await AuthService.login(credentials);
+        // const response = await AuthService.login(credentials);
+        AuthService.login(credentials)
+          .then((response) => addUser(response.data.user))
+          .catch((error) => console.log(error));
 
-        console.log(JSON.stringify(response?.data));
-        const token = await response.data.token;
-        const name = await response.data.user.name;
-        const userId = await response.data.user.userId;
-        const role = await response.data.user.role;
-        addUser({ token, userId, name, role });
+        // console.log(JSON.stringify(response?.data));
+        // const token = await response.data.token;
+        // const name = await response.data.user.name;
+        // const userId = await response.data.user.userId;
+        // const role = await response.data.user.role;
+        // addUser({ token, userId, name, role });
         navigate("/");
         setEmail("");
         setPassword("");
