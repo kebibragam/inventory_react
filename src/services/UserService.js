@@ -10,8 +10,15 @@ const createUser = (data) => {
 const getSingleUser = (id) => {
   return http.get(`/user/${id}`);
 };
-const updateUser = ({ id, data }) => {
-  return http.patch(`/user/${id}`, data);
+const updateUser = ({ _id, data }) => {
+  const { name, email, role } = data[0];
+  const updatedUser = {
+    name,
+    email,
+    role,
+  };
+  // console.log(updatedUser, "updated");
+  return http.patch(`/user/${_id}`, updatedUser);
 };
 const deleteUser = (id) => {
   return http.delete(`/user/${id}`);

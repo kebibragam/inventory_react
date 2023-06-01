@@ -1,27 +1,28 @@
 import React, { useState, useEffect } from "react";
 import UserService from "../services/UserService";
-import { FaEdit, FaPlus, FaSave } from "react-icons/fa";
+import { FaPlus } from "react-icons/fa";
 import SingleUser from "../components/Users/SingleUser";
 const Users = () => {
   const [users, setUsers] = useState([]);
-  // const [icon, setIcon] = useState(<FaEdit />);
-  const [isEditing, setIsEditing] = useState(false);
-  const saveUser = (_id) => {
-    setIsEditing(false);
+
+  const addUser = () => {
+    return;
   };
-  const editUser = (_id) => {
-    // setIcon(<FaSave />);
-    setIsEditing(true);
-  };
-  const addUser = () => {};
-  const deleteUser = (_id) => {};
+
   useEffect(() => {
     retrieveUsers();
   }, []);
+
   const retrieveUsers = () => {
     UserService.getAllUsers()
       .then((response) => {
-        setUsers(response.data.users);
+        let data = response.data.users;
+        data = data.map((a) => ({
+          ...a,
+          isEdit: false,
+        }));
+
+        setUsers(data);
       })
       .catch((e) => {
         console.log(e);
@@ -64,21 +65,8 @@ const Users = () => {
                 users.map((user) => {
                   return (
                     <>
-                      {/* <div key={_id}>
-                <h3>Name: {name}</h3>
-                <h4>Email: {email}</h4>
-                <h4>Role: {role}</h4>
-              </div> */}
-
                       <tbody>
-                        <SingleUser
-                          {...user}
-                          // icon={icon}
-                          saveUser={saveUser}
-                          editUser={editUser}
-                          deleteUser={deleteUser}
-                          isEditing={isEditing}
-                        />
+                        <SingleUser {...user} setUsers={setUsers} />
                       </tbody>
                     </>
                   );
