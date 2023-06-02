@@ -4,25 +4,39 @@ import SingleCustomer from "../components/Customers/SingleCustomer";
 import { FaPlus } from "react-icons/fa";
 const Customers = () => {
   const [customers, setCustomers] = useState([]);
-  const [isEditing, setIsEditing] = useState(false);
+  const addCustomer = () => {
+    setCustomers((pre) => {
+      let old_data = [...pre];
+      let newCustomer = {
+        _id: "new",
+        name: "",
+        address: "",
+        contact: "",
+        isEdit: "true",
+      };
+      old_data = old_data.map((a) => ({ ...a, isEdit: false }));
+      old_data.push(newCustomer);
+
+      return old_data;
+    });
+  };
   useEffect(() => {
     retrieveCustomer();
   }, []);
   const retrieveCustomer = () => {
     CustomerService.getAllCustomers()
       .then((response) => {
-        setCustomers(response.data);
-        console.log(response.data);
+        let data = response.data.map((a) => ({
+          ...a,
+          isEdit: false,
+        }));
+        setCustomers(data);
+        // console.log(data);
       })
       .catch((e) => {
         console.log(e);
       });
   };
-
-  const addCustomer = () => {};
-  const saveCustomer = () => {};
-  const editCustomer = () => {};
-  const deleteCustomer = () => {};
 
   return (
     <>
@@ -40,7 +54,7 @@ const Customers = () => {
                   <button
                     type="button"
                     className="btn btn-info add-new"
-                    onClick={() => addCustomer}
+                    onClick={addCustomer}
                   >
                     <FaPlus />
                     Add New
@@ -54,34 +68,23 @@ const Customers = () => {
                   <th>Name</th>
                   <th>Address</th>
                   <th>Contact</th>
-
                   <th>Actions</th>
                 </tr>
               </thead>
-              {customers &&
-                customers.map((customer) => {
-                  return (
-                    <>
-                      {/* <div key={_id}>
-                <h3>Name: {name}</h3>
-                <h4>Email: {email}</h4>
-                <h4>Role: {role}</h4>
-              </div> */}
-
-                      <tbody>
+              <tbody>
+                {customers &&
+                  customers.map((customer) => {
+                    return (
+                      <>
                         <SingleCustomer
                           {...customer}
-                          // icon={icon}
-                          saveCustomer={saveCustomer}
-                          editCustomer={editCustomer}
-                          deleteCustomer={deleteCustomer}
-                          isEditing={isEditing}
-                          setIsEditing={setIsEditing}
+                          setCustomers={setCustomers}
+                          retrieveCustomer={retrieveCustomer}
                         />
-                      </tbody>
-                    </>
-                  );
-                })}
+                      </>
+                    );
+                  })}
+              </tbody>
             </table>
           </div>
         </div>

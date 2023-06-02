@@ -1,10 +1,18 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import { FaEdit, FaSave } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa";
 
 import UserService from "../../services/UserService";
 
-const SingleUser = ({ _id, name, email, role, isEdit, setUsers }) => {
+const SingleUser = ({
+  _id,
+  name,
+  email,
+  isEdit,
+  role,
+  setUsers,
+  retrieveUsers,
+}) => {
   const edit_focus = useRef();
 
   const editUser = (_id) => {
@@ -35,26 +43,50 @@ const SingleUser = ({ _id, name, email, role, isEdit, setUsers }) => {
     if (_id == null || _id == "") {
       return;
     }
+    if (_id == "new") {
+      setUsers((pre) => {
+        let old_data = [...pre];
+        console.log("old data", old_data);
+        old_data = old_data.map((a) => ({ ...a }));
 
-    setUsers((pre) => {
-      let old_data = [...pre];
+        const data = old_data.filter(
+          (user) => user._id === _id && delete user._id && delete user.isEdit
+        );
+        // console.log("updated data", data[0]);
+        UserService.createUser(data[0]).then((response) => {
+          let tempUser = response.data.user;
+          tempUser = { ...tempUser, isEdit: false };
+          old_data.push(tempUser);
+        });
+        old_data = old_data.filter((a) => a._id !== undefined);
+        console.log(old_data, "new");
 
-      old_data = old_data.map((a) => ({ ...a }));
-      let index = old_data.map((a) => a._id).findIndex((a) => a == _id);
+        return old_data;
+      });
+      setTimeout(() => retrieveUsers(), 500);
+    } else {
+      setUsers((pre) => {
+        let old_data = [...pre];
 
-      if (index == -1) {
-        return;
-      }
+        old_data = old_data.map((a) => ({ ...a }));
+        let index = old_data.map((a) => a._id).findIndex((a) => a == _id);
 
-      const data = old_data.filter(
-        (user) => user._id === _id && delete user.isEdit && delete user._id
-      );
-      console.log("updated data", data);
-      UserService.updateUser({ _id, data });
-      old_data[index].isEdit = false;
-      return old_data;
-    });
+        if (index == -1) {
+          return;
+        }
+
+        const data = old_data.filter(
+          (user) => user._id === _id && delete user.isEdit && delete user._id
+        );
+        // console.log("updated data", data);
+        UserService.updateUser({ _id, data });
+        old_data[index].isEdit = false;
+
+        return old_data;
+      });
+    }
   };
+
   function handleEditName(_id, e) {
     let current_val = e.target.value;
     console.log("data=>", current_val);
@@ -123,7 +155,9 @@ const SingleUser = ({ _id, name, email, role, isEdit, setUsers }) => {
   // }
 
   function deleteUser(_id) {
-    UserService.deleteUser(_id);
+    if (_id && _id !== "new") {
+      UserService.deleteUser(_id);
+    }
 
     setUsers((pre) => {
       let old_data = [...pre];
@@ -152,6 +186,7 @@ const SingleUser = ({ _id, name, email, role, isEdit, setUsers }) => {
       <td>
         {isEdit ? (
           <input
+            type="email"
             value={email}
             onChange={(e) => handleEditEmail(_id, e)}
             // onBlur={handleBlur}
@@ -179,7 +214,7 @@ const SingleUser = ({ _id, name, email, role, isEdit, setUsers }) => {
       <td>
         <button
           className={isEdit ? ` button-icon add` : `button-icon edit`}
-          title="Edit"
+          title={isEdit ? "Add" : "Edit"}
           data-toggle="tooltip"
           onClick={() => (isEdit ? saveUser(_id) : editUser(_id))}
         >

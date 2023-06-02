@@ -145,13 +145,13 @@ const Login = () => {
                           Forgot Password ?
                         </a>
                       </div>
-                      <a
-                        href="./index.html"
+                      <button
+                        type="submit"
                         className="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2"
                         onClick={handleSubmit}
                       >
                         Log In
-                      </a>
+                      </button>
                     </form>
                   </div>
                 </div>

@@ -7,14 +7,20 @@ const createCustomer = (data) => {
   return http.post("/customers", data);
 };
 
-const getSingleCustomer = (id) => {
-  return http.get(`/customers/${id}`);
+const getSingleCustomer = (_id) => {
+  return http.get(`/customers/${_id}`);
 };
-const updateCustomer = ({ id, data }) => {
-  return http.patch(`/customers/${id}`, data);
+const updateCustomer = ({ _id, data }) => {
+  const { name, address, phone } = data[0];
+  data = {
+    name,
+    address,
+    phone,
+  };
+  return http.patch(`/customers/${_id}`, data);
 };
-const deleteCustomer = (id) => {
-  return http.delete(`/customers/${id}`);
+const deleteCustomer = (_id) => {
+  return http.delete(`/customers/${_id}`);
 };
 const CustomerService = {
   getAllCustomers,
