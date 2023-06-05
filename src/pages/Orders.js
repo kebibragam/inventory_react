@@ -11,6 +11,12 @@ const Orders = () => {
     retrieveOrders();
   }, []);
   useEffect(() => {
+    const retriveSingleOrder = () => {
+      OrderService.getSingleOrder(detailId).then((res) => {
+        console.log(res.data);
+        setOrdersDetails(res.data);
+      });
+    };
     detailId && retriveSingleOrder();
   }, [detailId]);
 
@@ -31,12 +37,6 @@ const Orders = () => {
       });
   };
 
-  const retriveSingleOrder = () => {
-    OrderService.getSingleOrder(detailId).then((res) => {
-      console.log(res.data);
-      setOrdersDetails(res.data);
-    });
-  };
   const closeModal = () => {
     setIsModalOpen(false);
   };
