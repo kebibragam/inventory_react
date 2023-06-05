@@ -7,14 +7,20 @@ const createProduct = (data) => {
   return http.post("/product", data);
 };
 
-const getSingleProduct = (id) => {
-  return http.get(`/product/${id}`);
+const getSingleProduct = (_id) => {
+  return http.get(`/product/${_id}`);
 };
-const updateProduct = ({ id, data }) => {
-  return http.patch(`/product/${id}`, data);
+const updateProduct = ({ _id, data }) => {
+  const { name, price, quantity } = data[0];
+  data = {
+    name,
+    price,
+    quantity,
+  };
+  return http.patch(`/product/${_id}`, data);
 };
-const deleteProduct = (id) => {
-  return http.delete(`/product/${id}`);
+const deleteProduct = (_id) => {
+  return http.delete(`/product/${_id}`);
 };
 const ProductService = {
   getAllProducts,

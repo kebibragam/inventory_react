@@ -20,7 +20,6 @@ const SingleCustomer = ({
     if (_id == null || _id == "") {
       return;
     }
-
     setTimeout(() => {
       edit_focus.current.focus();
     }, 500);
@@ -206,7 +205,7 @@ const SingleCustomer = ({
       <td>
         {isEdit ? (
           <input
-            type="number"
+            type="text"
             value={contact}
             onChange={(e) => handleEditContact(_id, e)}
             // onBlur={handleBlur}
@@ -215,15 +214,18 @@ const SingleCustomer = ({
           <>{contact}</>
         )}
       </td>
+
       <td>
         <button
           className={isEdit ? ` button-icon add` : `button-icon edit`}
           title={isEdit ? "Add" : "Edit"}
           data-toggle="tooltip"
           onClick={() => (isEdit ? saveCustomer(_id) : editCustomer(_id))}
+          // onClick={() => editCustomer(_id)}
         >
           {isEdit ? <FaSave /> : <FaEdit />}
         </button>
+
         <button
           className="delete button-icon"
           title="Delete"
