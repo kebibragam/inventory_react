@@ -8,6 +8,10 @@ const Dashboard = () => {
   return (
     <>
       <div>Welcome, {data.user.name}</div>
+      <section>
+        <aside>most sold products</aside>
+        <aside>low stock products</aside>
+      </section>
     </>
   );
 };
