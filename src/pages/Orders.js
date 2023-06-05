@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import OrderService from "../services/OrderService";
 import { FaPlus, FaTimes } from "react-icons/fa";
-import SingleOrder from "../components/Orders/SingleOrder";
+import SingleOrder from "../components/SingleOrder";
+// import SingleOrder from "../components/Orders/SingleOrder";
 const Orders = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [orders, setOrders] = useState([]);
