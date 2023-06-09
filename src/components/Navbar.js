@@ -47,7 +47,7 @@ const Navbar = () => {
                       aria-current="page"
                       to="/home"
                     >
-                      Home
+                      <span data-bs-dismiss="offcanvas">Home</span>
                     </NavLink>
                   </li>
                   <li className="nav-item">
@@ -57,7 +57,7 @@ const Navbar = () => {
                       aria-current="page"
                       to="/products"
                     >
-                      Products
+                      <span data-bs-dismiss="offcanvas">Products</span>
                     </NavLink>
                   </li>
                   <li className="nav-item">
@@ -67,7 +67,7 @@ const Navbar = () => {
                       aria-current="page"
                       to="/customers"
                     >
-                      Customers
+                      <span data-bs-dismiss="offcanvas">Customers</span>
                     </NavLink>
                   </li>
                   <li className="nav-item">
@@ -77,7 +77,7 @@ const Navbar = () => {
                       aria-current="page"
                       to="/orders"
                     >
-                      Orders
+                      <span data-bs-dismiss="offcanvas">Orders</span>
                     </NavLink>
                   </li>
 
@@ -88,7 +88,7 @@ const Navbar = () => {
                       aria-current="page"
                       to="/profile"
                     >
-                      Profile
+                      <span data-bs-dismiss="offcanvas">Profile</span>
                     </NavLink>
                   </li>
                 </ul>
@@ -99,6 +99,7 @@ const Navbar = () => {
       </>
     );
   }
+
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary nav-custom">
@@ -130,6 +131,7 @@ const Navbar = () => {
                 type="button"
                 className="btn-close"
                 data-bs-dismiss="offcanvas"
+                aria-controls="offcanvasNavbar"
                 aria-label="Close"
               ></button>
             </div>
@@ -143,7 +145,7 @@ const Navbar = () => {
                     aria-current="page"
                     to="/"
                   >
-                    Dashboard
+                    <span data-bs-dismiss="offcanvas">Dashboard</span>
                   </NavLink>
                 </li>
                 <li className="nav-item">
@@ -153,7 +155,7 @@ const Navbar = () => {
                     aria-current="page"
                     to="/products"
                   >
-                    Products
+                    <span data-bs-dismiss="offcanvas">Products</span>
                   </NavLink>
                 </li>
                 <li className="nav-item">
@@ -163,7 +165,7 @@ const Navbar = () => {
                     aria-current="page"
                     to="/customers"
                   >
-                    Customers
+                    <span data-bs-dismiss="offcanvas">Customers</span>
                   </NavLink>
                 </li>
                 <li className="nav-item">
@@ -173,7 +175,7 @@ const Navbar = () => {
                     aria-current="page"
                     to="/orders"
                   >
-                    Orders
+                    <span data-bs-dismiss="offcanvas">Orders</span>
                   </NavLink>
                 </li>
                 <li className="nav-item">
@@ -183,7 +185,7 @@ const Navbar = () => {
                     aria-current="page"
                     to="/users"
                   >
-                    Users
+                    <span data-bs-dismiss="offcanvas">Users</span>
                   </NavLink>
                 </li>
                 <li className="nav-item">
@@ -193,7 +195,7 @@ const Navbar = () => {
                     aria-current="page"
                     to="/profile"
                   >
-                    Profile
+                    <span data-bs-dismiss="offcanvas">Profile</span>
                   </NavLink>
                 </li>
               </ul>
