@@ -17,6 +17,7 @@ import Orders from "./pages/Orders";
 import Users from "./pages/Users";
 import RegisterUser from "./pages/RegisterUser";
 import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 
 import ProtectedRoute from "./pages/ProtectedRoute";
@@ -58,6 +59,15 @@ function App() {
           element={
             <ProtectedRoute>
               <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          exact
+          path="/home"
+          element={
+            <ProtectedRoute>
+              <Home />
             </ProtectedRoute>
           }
         />

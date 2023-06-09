@@ -58,33 +58,14 @@ const Login = () => {
   };
   return (
     <section>
-      {user && <Navigate to="/" />}
+      {user &&
+        (user.role === "manager" ? (
+          <Navigate to="/" />
+        ) : (
+          <Navigate to="/home" />
+        ))}
       {errMsg && <p aria-live="assertive">{errMsg}</p>}
-      {/* <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="email">email</label>
-          <input
-            type="email"
-            id="email"
-            ref={userRef}
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="password">password</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <button>log in</button>
-      </form> */}
+
       <div
         className="page-wrapper"
         id="main-wrapper"

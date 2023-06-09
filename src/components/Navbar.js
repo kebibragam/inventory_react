@@ -6,7 +6,7 @@ const Navbar = () => {
   if (user.role === "cashier") {
     return (
       <>
-        <nav className="navbar navbar-expand-lg bg-body-tertiary">
+        <nav className="navbar  navbar-expand-lg bg-body-tertiary nav-custom">
           <div className="container-fluid">
             <NavLink className="navbar-brand" to="/">
               Aananda Mart
@@ -42,16 +42,18 @@ const Navbar = () => {
                 <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
                   <li className="nav-item">
                     <NavLink
-                      className="nav-link active"
+                      className="nav-link"
+                      activeclassname="active"
                       aria-current="page"
-                      to="/"
+                      to="/home"
                     >
-                      Dashboard
+                      Home
                     </NavLink>
                   </li>
                   <li className="nav-item">
                     <NavLink
-                      className="nav-link active"
+                      className="nav-link "
+                      activeclassname="active"
                       aria-current="page"
                       to="/products"
                     >
@@ -60,7 +62,8 @@ const Navbar = () => {
                   </li>
                   <li className="nav-item">
                     <NavLink
-                      className="nav-link active"
+                      className="nav-link "
+                      activeclassname="active"
                       aria-current="page"
                       to="/customers"
                     >
@@ -69,7 +72,8 @@ const Navbar = () => {
                   </li>
                   <li className="nav-item">
                     <NavLink
-                      className="nav-link active"
+                      className="nav-link "
+                      activeclassname="active"
                       aria-current="page"
                       to="/orders"
                     >
@@ -79,7 +83,8 @@ const Navbar = () => {
 
                   <li className="nav-item">
                     <NavLink
-                      className="nav-link active"
+                      className="nav-link "
+                      activeclassname="active"
                       aria-current="page"
                       to="/profile"
                     >
@@ -96,7 +101,7 @@ const Navbar = () => {
   }
   return (
     <>
-      <nav className="navbar navbar-expand-lg bg-body-tertiary">
+      <nav className="navbar navbar-expand-lg bg-body-tertiary nav-custom">
         <div className="container-fluid">
           <NavLink className="navbar-brand" to="/">
             Aananda Mart
@@ -133,7 +138,8 @@ const Navbar = () => {
               <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
                 <li className="nav-item">
                   <NavLink
-                    className="nav-link active"
+                    className="nav-link"
+                    activeclassname="active"
                     aria-current="page"
                     to="/"
                   >
@@ -142,7 +148,8 @@ const Navbar = () => {
                 </li>
                 <li className="nav-item">
                   <NavLink
-                    className="nav-link active"
+                    className="nav-link"
+                    activeclassname="active"
                     aria-current="page"
                     to="/products"
                   >
@@ -151,7 +158,8 @@ const Navbar = () => {
                 </li>
                 <li className="nav-item">
                   <NavLink
-                    className="nav-link active"
+                    className="nav-link"
+                    activeclassname="active"
                     aria-current="page"
                     to="/customers"
                   >
@@ -160,7 +168,8 @@ const Navbar = () => {
                 </li>
                 <li className="nav-item">
                   <NavLink
-                    className="nav-link active"
+                    className="nav-link "
+                    activeclassname="active"
                     aria-current="page"
                     to="/orders"
                   >
@@ -169,7 +178,8 @@ const Navbar = () => {
                 </li>
                 <li className="nav-item">
                   <NavLink
-                    className="nav-link active"
+                    className="nav-link "
+                    activeclassname="active"
                     aria-current="page"
                     to="/users"
                   >
@@ -178,7 +188,8 @@ const Navbar = () => {
                 </li>
                 <li className="nav-item">
                   <NavLink
-                    className="nav-link active"
+                    className="nav-link "
+                    activeclassname="active"
                     aria-current="page"
                     to="/profile"
                   >
