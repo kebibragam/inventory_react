@@ -6,7 +6,7 @@ const Navbar = () => {
   if (user.role === "cashier") {
     return (
       <>
-        <nav className="navbar  navbar-expand-lg bg-body-tertiary nav-custom">
+        <nav className="navbar  navbar-expand-lg bg-body-tertiary">
           <div className="container-fluid">
             <NavLink className="navbar-brand" to="/">
               Aananda Mart
