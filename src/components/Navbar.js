@@ -1,15 +1,16 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { useGlobalContext } from "../context/AuthContext";
+import { FaBars } from "react-icons/fa";
 const Navbar = () => {
   const { user } = useGlobalContext();
   if (user.role === "cashier") {
     return (
       <>
-        <nav className="navbar  navbar-expand-lg bg-body-tertiary">
+        <nav className="navbar-dark  navbar-expand-lg bg-body-tertiary">
           <div className="container-fluid">
             <NavLink className="navbar-brand" to="/">
-              <div className="main-title">Aananda Mart</div>
+              Aananda Mart
             </NavLink>
             <button
               className="navbar-toggler"
@@ -19,8 +20,11 @@ const Navbar = () => {
               aria-controls="offcanvasNavbar"
               aria-label="Toggle navigation"
             >
-              <span className="navbar-toggler-icon"></span>
+              <span className="navbar-toggler-icon">
+                <FaBars />
+              </span>
             </button>
+
             <div
               className="offcanvas offcanvas-end"
               tabIndex="-1"
@@ -29,7 +33,7 @@ const Navbar = () => {
             >
               <div className="offcanvas-header">
                 <h5 className="offcanvas-title" id="offcanvasNavbarLabel">
-                  <div className="main-title">Aananda Mart</div>
+                  Aananda Mart
                 </h5>
                 <button
                   type="button"
