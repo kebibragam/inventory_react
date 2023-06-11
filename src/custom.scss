@@ -169,9 +169,11 @@ p {
 .table-wrapper {
   width: 700px;
   margin: 30px auto;
-  background: #fff;
+  // background: #fff;
+  background: #7DA0CA;
+  border-radius: 2%;
   padding: 20px;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;
 }
 
 .table-title {
@@ -201,6 +203,7 @@ p {
 
 table.table {
   table-layout:fixed;
+  // box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;
 }
 
 table.table tr th,
@@ -269,21 +272,7 @@ input{
   background: transparent;
   border-color: transparent;
 }
-//navbar
-// .navbar{
-//   background-color: #27C46B;
-//   color: #27C46B;
-// }
-// .navbar-custom{
-//   background-color: #E34724;
-// }
-// .nav-item.nav-link.active {
-//   background-color: #fff;
-//   color: #000;
-// }
-// .navbar .bg-body-tertiary{
-//   background-color: #052659;
-// }
+
 
 /*
 =============== 
@@ -313,16 +302,17 @@ Modal
 .modal-container {
   background: var(--clr-white);
   border-radius: var(--radius);
-  // width: 90vw;
-  // height: 30vh;
-  width: fit-content;
-  height: fit-content;
+  width: 95vw;
+  height: 50vh;
+  // width: fit-content;
+  // height: fit-content;
   max-width: var(--fixed-width);
   text-align: center;
   display: grid;
   place-items: center;
   position: relative;
 }
+
 
 .close-modal-btn {
   position: absolute;
@@ -378,11 +368,26 @@ nav.nav-custom {
   display: flex;
   justify-content: center;
 }
+.main-title{
+  color: #fff !important;
+}
+
+a span {
+  width: 100%;
+  text-align: center;
+}
+a{
+  margin: 0;
+  padding: 0;
+}
+
 
 .chart-container{
   width: 85%;
   height:400px;
 }
+
+
 @import '~bootstrap/scss/bootstrap.scss';
 
 

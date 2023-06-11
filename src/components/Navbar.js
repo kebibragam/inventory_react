@@ -9,7 +9,7 @@ const Navbar = () => {
         <nav className="navbar  navbar-expand-lg bg-body-tertiary nav-custom">
           <div className="container-fluid">
             <NavLink className="navbar-brand" to="/">
-              Aananda Mart
+              <div className="main-title">Aananda Mart</div>
             </NavLink>
             <button
               className="navbar-toggler"
@@ -29,7 +29,7 @@ const Navbar = () => {
             >
               <div className="offcanvas-header">
                 <h5 className="offcanvas-title" id="offcanvasNavbarLabel">
-                  Aananda Mart
+                  <div className="main-title">Aananda Mart</div>
                 </h5>
                 <button
                   type="button"

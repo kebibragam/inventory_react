@@ -53,17 +53,15 @@ const Orders = () => {
         }  `}
       >
         <div className="modal-container">
-          <h4>order info</h4>
-          {/* <h4>{detailId}</h4> */}
-          <h5>Customer Name: {orderDetails.customerName}</h5>
-          <h5>Created at: {localDate}</h5>
-
-          <div className="container-lg">
+          <div className="container-sm-2">
             <div className="table-responsive">
               <div className="table-wrapper">
                 <div className="table-title"></div>
-
-                <table className="table table-bordered">
+                <h4>order info</h4>
+                {/* <h4>{detailId}</h4> */}
+                <h5>Customer Name: {orderDetails.customerName}</h5>
+                <h5>Created at: {localDate}</h5>
+                <table className="table table-bordered modal-table">
                   <thead>
                     <tr>
                       <th>Name</th>

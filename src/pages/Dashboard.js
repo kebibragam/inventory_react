@@ -51,8 +51,8 @@ const Dashboard = () => {
     <>
       <div className="container">
         <div className="row">
-          <div className="container-lg">
-            <div className="col-sm-8">
+          <div className="container-lg pt-5 ">
+            <div className="col-sm-14  pb-5 text-center">
               <h4>
                 <b>Most Sold Products</b>
               </h4>
@@ -81,7 +81,7 @@ const Dashboard = () => {
                 <div className="table-wrapper">
                   <div className="table-title">
                     <div className="row">
-                      <div className="col-sm-8">
+                      <div className="col-sm-14 text-center">
                         <h2>
                           <b>Low Stock Products</b>
                         </h2>
@@ -93,8 +93,8 @@ const Dashboard = () => {
                     <thead>
                       <tr>
                         <th>Name</th>
-                        <th>Price</th>
                         <th>Quantity</th>
+                        <th>Price</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -104,8 +104,8 @@ const Dashboard = () => {
                           return (
                             <tr key={_id}>
                               <td>{name}</td>
-                              <td>{price}</td>
                               <td>{quantity}</td>
+                              <td>{price}</td>
                             </tr>
                           );
                         })}
