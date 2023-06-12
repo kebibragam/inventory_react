@@ -7,7 +7,7 @@ const Navbar = () => {
   if (user.role === "cashier") {
     return (
       <>
-        <nav className="navbar-dark  navbar-expand-lg bg-body-tertiary">
+        <nav className="navbar navbar-expand-lg bg-body-tertiary nav-custom">
           <div className="container-fluid">
             <NavLink className="navbar-brand" to="/">
               Aananda Mart
@@ -20,11 +20,8 @@ const Navbar = () => {
               aria-controls="offcanvasNavbar"
               aria-label="Toggle navigation"
             >
-              <span className="navbar-toggler-icon">
-                <FaBars />
-              </span>
+              <span className="navbar-toggler-icon"></span>
             </button>
-
             <div
               className="offcanvas offcanvas-end"
               tabIndex="-1"
@@ -39,9 +36,11 @@ const Navbar = () => {
                   type="button"
                   className="btn-close"
                   data-bs-dismiss="offcanvas"
+                  aria-controls="offcanvasNavbar"
                   aria-label="Close"
                 ></button>
               </div>
+
               <div className="offcanvas-body">
                 <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
                   <li className="nav-item">
@@ -56,7 +55,7 @@ const Navbar = () => {
                   </li>
                   <li className="nav-item">
                     <NavLink
-                      className="nav-link "
+                      className="nav-link"
                       activeclassname="active"
                       aria-current="page"
                       to="/products"
@@ -66,7 +65,7 @@ const Navbar = () => {
                   </li>
                   <li className="nav-item">
                     <NavLink
-                      className="nav-link "
+                      className="nav-link"
                       activeclassname="active"
                       aria-current="page"
                       to="/customers"
