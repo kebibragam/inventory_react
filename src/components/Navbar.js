@@ -1,9 +1,18 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useGlobalContext } from "../context/AuthContext";
-import { FaBars } from "react-icons/fa";
+import AuthService from "../services/AuthService";
+import { FaBars, FaUser } from "react-icons/fa";
+
 const Navbar = () => {
-  const { user } = useGlobalContext();
+  const navigate = useNavigate();
+  const { user, removeUser } = useGlobalContext();
+  const logout = () => {
+    AuthService.logout()
+      .then(removeUser())
+      .then(navigate("/login"))
+      .catch((error) => console.log(error));
+  };
   if (user.role === "cashier") {
     return (
       <>
@@ -20,7 +29,8 @@ const Navbar = () => {
               aria-controls="offcanvasNavbar"
               aria-label="Toggle navigation"
             >
-              <span className="navbar-toggler-icon"></span>
+              {/* <span className="navbar-toggler-icon"></span> */}
+              <FaBars color="white" />
             </button>
             <div
               className="offcanvas offcanvas-end"
@@ -93,6 +103,26 @@ const Navbar = () => {
                     >
                       <span data-bs-dismiss="offcanvas">Profile</span>
                     </NavLink>
+                  </li>
+                </ul>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li>
+                    <a class="dropdown-item" href="#">
+                      Action
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">
+                      Another action
+                    </a>
+                  </li>
+                  <li>
+                    <hr class="dropdown-divider" />
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">
+                      Something else here
+                    </a>
                   </li>
                 </ul>
               </div>
@@ -191,15 +221,45 @@ const Navbar = () => {
                     <span data-bs-dismiss="offcanvas">Users</span>
                   </NavLink>
                 </li>
-                <li className="nav-item">
-                  <NavLink
-                    className="nav-link "
-                    activeclassname="active"
-                    aria-current="page"
-                    to="/profile"
+
+                <li class="nav-item dropdown p-0 m-0">
+                  <a
+                    class="nav-link dropdown-toggle"
+                    href="/"
+                    id="navbarDropdown"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
                   >
-                    <span data-bs-dismiss="offcanvas">Profile</span>
-                  </NavLink>
+                    <FaUser />
+                  </a>
+                  <ul
+                    class="dropdown-menu p-0 m-0"
+                    aria-labelledby="navbarDropdown w-25"
+                  >
+                    <li className="nav-item p-0 m-0">
+                      <NavLink
+                        className="nav-link "
+                        activeclassname="active"
+                        aria-current="page"
+                        to="/profile"
+                      >
+                        <span data-bs-dismiss="offcanvas">Profile</span>
+                        {/* <FaUser /> */}
+                      </NavLink>
+                    </li>
+                    <li>
+                      <hr class="dropdown-divider" />
+                    </li>
+                    <li>
+                      <button
+                        class="dropdown-item p-1 align-center text-center "
+                        onClick={logout}
+                      >
+                        Log Out
+                      </button>
+                    </li>
+                  </ul>
                 </li>
               </ul>
             </div>

@@ -135,6 +135,7 @@ p {
   h4 {
     line-height: 1;
   }
+ 
 }
 
 /*  global classes */
@@ -355,6 +356,9 @@ nav.nav-custom {
   margin: 0;
   
 }
+.navbar .dropdown-menu{
+  background-color: #13448c !important;
+}
 
 .navbar .offcanvas .active {
 
@@ -368,7 +372,12 @@ nav.nav-custom {
   display: flex;
   justify-content: center;
 }
-
+.navbar-toggler{
+  border: none !important;
+}
+.navbar-toggler:focus {
+  box-shadow: none !important;
+}
 .offcanvas-title{
   color: #fff !important;
 }
@@ -378,14 +387,42 @@ nav.nav-custom {
 .navbar-toggler-icon{
   color: #fff !important;
 }
+.btn-close{
+  background-color: #fff !important;
+}
+.dropdown-item{
+    color: #fff !important;
+}
+.dropdown-item:hover{
+    background-color: #4469a1 !important;
+}
+.dropdown-menu{
+  min-width:fit-content !important ;
+}
 
 
 .chart-container{
   width: 85%;
   height:400px;
+  min-width: 300px;
 }
 
+ @media screen and (max-width: 500px) {
+  tspan {
+      font-size: 0.8rem !important;
+    }
+ }
 
+ .gradient-custom {
+   /* fallback for old browsers */
+   background: #f6d365;
+
+   /* Chrome 10-25, Safari 5.1-6 */
+   background: -webkit-linear-gradient(to right bottom, rgba(246, 211, 101, 1), rgba(253, 160, 133, 1));
+
+   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+   background: linear-gradient(to right bottom, rgba(246, 211, 101, 1), rgba(253, 160, 133, 1))
+ }
 @import '~bootstrap/scss/bootstrap.scss';
 
 

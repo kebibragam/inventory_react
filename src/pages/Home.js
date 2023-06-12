@@ -1,23 +1,25 @@
 import React, { useState } from "react";
+import useProductFetch from "../hooks/useProductFetch";
 
-const data = [
-  { id: 1, name: "Product 1", price: 10, quantity: 100 },
-  { id: 2, name: "Product 2", price: 15, quantity: 100 },
-  { id: 3, name: "Product 3", price: 20, quantity: 100 },
-  // Add more products here
-];
+// const data = [
+//   { id: 1, name: "Product 1", price: 10, quantity: 100 },
+//   { id: 2, name: "Product 2", price: 15, quantity: 100 },
+//   { id: 3, name: "Product 3", price: 20, quantity: 100 },
+//   // Add more products here
+// ];
 
 const Home = () => {
-  const [products, setProducts] = useState(data);
+  // const [products, setProducts] = useState(data);
+  const { products, updateProducts } = useProductFetch();
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [customerId, setCustomerId] = useState("");
 
   const handleProductSelect = (productId) => {
     const selectedProductIndex = selectedProducts.findIndex(
-      (p) => p.id === productId
+      (p) => p._id === productId
     );
-    const productIndex = products.findIndex((p) => p.id === productId);
+    const productIndex = products.findIndex((p) => p._id === productId);
 
     if (selectedProductIndex !== -1) {
       const updatedSelectedProducts = [...selectedProducts];
@@ -33,7 +35,8 @@ const Home = () => {
       updatedProducts[productIndex] = product;
 
       setSelectedProducts(updatedSelectedProducts);
-      setProducts(updatedProducts);
+      // setProducts(updatedProducts);
+      updateProducts(updatedProducts);
     } else if (productIndex !== -1 && products[productIndex].quantity > 0) {
       const updatedSelectedProducts = [
         ...selectedProducts,
@@ -45,19 +48,21 @@ const Home = () => {
       updatedProducts[productIndex] = product;
 
       setSelectedProducts(updatedSelectedProducts);
-      setProducts(updatedProducts);
+      // setProducts(updatedProducts);
+      updateProducts(updatedProducts);
     }
   };
   const handleRemoveProduct = (productId) => {
     const updatedSelectedProducts = selectedProducts.map((p) =>
-      p.id === productId ? { ...p, quantity: p.quantity - 1 } : p
+      p._id === productId ? { ...p, quantity: p.quantity - 1 } : p
     );
     const updatedFilteredProducts = products.map((p) =>
-      p.id === productId ? { ...p, quantity: p.quantity + 1 } : p
+      p._id === productId ? { ...p, quantity: p.quantity + 1 } : p
     );
 
     setSelectedProducts(updatedSelectedProducts.filter((p) => p.quantity > 0));
-    setProducts(updatedFilteredProducts);
+    // setProducts(updatedFilteredProducts);
+    updateProducts(updatedFilteredProducts);
   };
 
   const calculateTotal = () => {
@@ -80,6 +85,21 @@ const Home = () => {
     setCustomerId(event.target.value);
   };
 
+  const handleCreateOrder = () => {
+    // Submit order details and customer ID
+    const order = {
+      products: selectedProducts,
+      customerId: customerId,
+    };
+
+    console.log(order);
+    // You can make an API call here to send the order details to the server
+
+    // Reset selected products and customer ID
+    setSelectedProducts([]);
+    setCustomerId("");
+  };
+
   return (
     <div className="container mt-5">
       <h1 className="mb-4">Order Taking Page</h1>
@@ -99,7 +119,7 @@ const Home = () => {
           <ul className="list-group">
             {filteredProducts.map((product) => (
               <li
-                key={product.id}
+                key={product._id}
                 className="list-group-item d-flex justify-content-between align-items-center"
               >
                 <div>
@@ -111,7 +131,7 @@ const Home = () => {
                   </span>
                   <button
                     className="btn btn-sm btn-success me-2"
-                    onClick={() => handleProductSelect(product.id)}
+                    onClick={() => handleProductSelect(product._id)}
                     disabled={product.quantity <= 0}
                   >
                     Add
@@ -127,7 +147,7 @@ const Home = () => {
           <ul className="list-group">
             {selectedProducts.map((product) => (
               <li
-                key={product.id}
+                key={product._id}
                 className="list-group-item d-flex justify-content-between align-items-center"
               >
                 <div>
@@ -136,7 +156,7 @@ const Home = () => {
                 <div>
                   <button
                     className="btn btn-sm btn-danger"
-                    onClick={() => handleRemoveProduct(product.id)}
+                    onClick={() => handleRemoveProduct(product._id)}
                   >
                     Remove
                   </button>
@@ -159,6 +179,9 @@ const Home = () => {
               onChange={handleCustomerIdChange}
             />
           </div>
+          <button className="btn btn-primary mt-4" onClick={handleCreateOrder}>
+            Create Order
+          </button>
         </div>
       </div>
     </div>

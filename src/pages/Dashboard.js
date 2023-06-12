@@ -51,30 +51,6 @@ const Dashboard = () => {
     <>
       <div className="container">
         <div className="row">
-          <div className="container-lg pt-5 ">
-            <div className="col-sm-14  pb-5 text-center">
-              <h4>
-                <b>Most Sold Products</b>
-              </h4>
-            </div>
-
-            <div className="chart-container">
-              <ResponsiveContainer>
-                <BarChart data={mostSoldProduct}>
-                  {/* <CartesianGrid strokeDasharray="2 2"  /> */}
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend
-                    formatter={() => (
-                      <span className="text-color-class">Quantity Sold</span>
-                    )}
-                  />
-                  <Bar dataKey="soldQuantity" fill="#8884d8" />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          </div>
           <div className="col-lg">
             <div className="container-lg">
               <div className="table-responsive">
@@ -113,6 +89,30 @@ const Dashboard = () => {
                   </table>
                 </div>
               </div>
+            </div>
+          </div>
+          <div className="container-lg pt-5 ">
+            <div className="col-sm-14  pb-5 text-center">
+              <h4>
+                <b>Most Sold Products</b>
+              </h4>
+            </div>
+
+            <div className="chart-container">
+              <ResponsiveContainer>
+                <BarChart data={mostSoldProduct}>
+                  {/* <CartesianGrid strokeDasharray="2 2"  /> */}
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend
+                    formatter={() => (
+                      <span className="text-color-class">Quantity Sold</span>
+                    )}
+                  />
+                  <Bar dataKey="soldQuantity" fill="#8884d8" />
+                </BarChart>
+              </ResponsiveContainer>
             </div>
           </div>
         </div>
