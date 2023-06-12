@@ -1,5 +1,12 @@
 import React, { useState } from "react";
 
+const data = [
+  { id: 1, name: "Product 1", price: 10, quantity: 100 },
+  { id: 2, name: "Product 2", price: 15, quantity: 100 },
+  { id: 3, name: "Product 3", price: 20, quantity: 100 },
+  // Add more products here
+];
+
 const Home = () => {
   const [products, setProducts] = useState(data);
   const [selectedProducts, setSelectedProducts] = useState([]);
