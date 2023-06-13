@@ -1,15 +1,9 @@
 import React, { useState } from "react";
 import useProductFetch from "../hooks/useProductFetch";
 
-// const data = [
-//   { id: 1, name: "Product 1", price: 10, quantity: 100 },
-//   { id: 2, name: "Product 2", price: 15, quantity: 100 },
-//   { id: 3, name: "Product 3", price: 20, quantity: 100 },
-//   // Add more products here
-// ];
+import OrderService from "../services/OrderService";
 
 const Home = () => {
-  // const [products, setProducts] = useState(data);
   const { products, updateProducts } = useProductFetch();
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -94,6 +88,7 @@ const Home = () => {
 
     console.log(order);
     // You can make an API call here to send the order details to the server
+    OrderService.createOrder(order);
 
     // Reset selected products and customer ID
     setSelectedProducts([]);
@@ -123,7 +118,7 @@ const Home = () => {
                 className="list-group-item d-flex justify-content-between align-items-center"
               >
                 <div>
-                  {product.name} - ${product.price}
+                  {product.name} - Rs {product.price}
                 </div>
                 <div>
                   <span className="badge bg-primary rounded-pill">
@@ -151,7 +146,7 @@ const Home = () => {
                 className="list-group-item d-flex justify-content-between align-items-center"
               >
                 <div>
-                  {product.name} - ${product.price} x {product.quantity}
+                  {product.name} - Rs {product.price} x {product.quantity}
                 </div>
                 <div>
                   <button
@@ -165,7 +160,7 @@ const Home = () => {
             ))}
           </ul>
 
-          <h2 className="mt-4">Total Payable Amount: ${calculateTotal()}</h2>
+          <h2 className="mt-4">Total Payable Amount: Rs {calculateTotal()}</h2>
 
           <div className="mt-4">
             <label htmlFor="customerId" className="form-label">

@@ -29,8 +29,7 @@ const Navbar = () => {
               aria-controls="offcanvasNavbar"
               aria-label="Toggle navigation"
             >
-              {/* <span className="navbar-toggler-icon"></span> */}
-              <FaBars color="white" />
+              <span className="navbar-toggler-icon"></span>
             </button>
             <div
               className="offcanvas offcanvas-end"
@@ -94,35 +93,44 @@ const Navbar = () => {
                     </NavLink>
                   </li>
 
-                  <li className="nav-item">
-                    <NavLink
-                      className="nav-link "
-                      activeclassname="active"
-                      aria-current="page"
-                      to="/profile"
+                  <li class="nav-item dropdown p-0 m-0">
+                    <a
+                      class="nav-link dropdown-toggle"
+                      href="/"
+                      id="navbarDropdown"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
                     >
-                      <span data-bs-dismiss="offcanvas">Profile</span>
-                    </NavLink>
-                  </li>
-                </ul>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li>
-                    <a class="dropdown-item" href="#">
-                      Action
+                      <FaUser />
                     </a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="#">
-                      Another action
-                    </a>
-                  </li>
-                  <li>
-                    <hr class="dropdown-divider" />
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="#">
-                      Something else here
-                    </a>
+                    <ul
+                      class="dropdown-menu p-0 m-0"
+                      aria-labelledby="navbarDropdown w-25"
+                    >
+                      <li className="nav-item p-0 m-0">
+                        <NavLink
+                          className="nav-link "
+                          activeclassname="active"
+                          aria-current="page"
+                          to="/profile"
+                        >
+                          <span data-bs-dismiss="offcanvas">Profile</span>
+                          {/* <FaUser /> */}
+                        </NavLink>
+                      </li>
+                      <li>
+                        <hr class="dropdown-divider" />
+                      </li>
+                      <li>
+                        <button
+                          class="dropdown-item p-1 align-center text-center "
+                          onClick={logout}
+                        >
+                          Log Out
+                        </button>
+                      </li>
+                    </ul>
                   </li>
                 </ul>
               </div>
