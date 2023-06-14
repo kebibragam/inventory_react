@@ -8,6 +8,7 @@ const createUser = (data) => {
 };
 
 const getSingleUser = (id) => {
+  // console.log("id", id);
   return http.get(`/user/${id}`);
 };
 const updateUser = ({ _id, data }) => {

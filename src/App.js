@@ -19,6 +19,7 @@ import RegisterUser from "./pages/RegisterUser";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
+import Index from "./pages/Index";
 
 import ProtectedRoute from "./pages/ProtectedRoute";
 import { useGlobalContext } from "./context/AuthContext";
@@ -37,11 +38,12 @@ function App() {
   }
   return (
     <BrowserRouter>
-      {user && <Navbar />}
-
+      {/* {user && <Navbar />} */}
+      <Navbar />
       <Routes>
         {/* public */}
         <Route exact path="/login" element={<Login />} />
+        <Route exact path="/" element={<Index />} />
         {/* private */}
         <Route
           exact
@@ -55,7 +57,7 @@ function App() {
 
         <Route
           exact
-          path="/"
+          path="/dashboard"
           element={
             <ProtectedRoute>
               <Dashboard />

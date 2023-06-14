@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import OrderService from "../services/OrderService";
-import { FaPlus, FaTimes } from "react-icons/fa";
+import { FaTimes } from "react-icons/fa";
 import SingleOrder from "../components/SingleOrder";
 // import SingleOrder from "../components/Orders/SingleOrder";
 const Orders = () => {
@@ -8,6 +8,9 @@ const Orders = () => {
   const [orders, setOrders] = useState([]);
   const [detailId, setDetailId] = useState(null);
   const [orderDetails, setOrdersDetails] = useState([]);
+
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchDate, setSearchDate] = useState("");
   useEffect(() => {
     retrieveOrders();
   }, []);
@@ -45,6 +48,28 @@ const Orders = () => {
   const date = new Date(orderDetails.createdAt);
   const options = { timeZone: "Asia/Kathmandu" }; // replace with user's timezone
   const localDate = date.toLocaleString("en-US", options);
+  const handleSearchInputChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+  const handleSearchDateChange = (event) => {
+    // setSearchDate(event.target.value);
+    const selectedDate = event.target.value;
+
+    // Get the current date
+    const currentDate = getCurrentDate();
+
+    // Compare the selected date with the current date
+    if (selectedDate <= currentDate) {
+      setSearchDate(selectedDate);
+    }
+  };
+  function getCurrentDate() {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, "0");
+    const day = String(today.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  }
   return (
     <>
       <div
@@ -109,7 +134,24 @@ const Orders = () => {
                     Order <b>Details</b>
                   </h2>
                 </div>
-                <div className="col-sm-4">
+                <div className="search-bar col-sm-4 ">
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={handleSearchInputChange}
+                    placeholder="Search by name"
+                    // class="w-25 "
+                  />
+                  <input
+                    type="date"
+                    name="date"
+                    id="date"
+                    value={searchDate}
+                    onChange={handleSearchDateChange}
+                    max={getCurrentDate()}
+                  />
+                </div>
+                {/* <div className="col-sm-4">
                   <button
                     type="button"
                     className="btn btn-info add-new"
@@ -118,8 +160,8 @@ const Orders = () => {
                   >
                     <FaPlus />
                     Add New
-                  </button>
-                </div>
+                  </button> */}
+                {/* </div> */}
               </div>
             </div>
 
@@ -134,20 +176,34 @@ const Orders = () => {
               </thead>
               <tbody>
                 {orders &&
-                  orders.map((order) => {
-                    return (
-                      <>
-                        <SingleOrder
-                          {...order}
-                          detailId={detailId}
-                          setDetailId={setDetailId}
-                          setOrders={setOrders}
-                          retrieveOrders={retrieveOrders}
-                          setIsModalOpen={setIsModalOpen}
-                        />
-                      </>
-                    );
-                  })}
+                  orders
+                    .filter((product) =>
+                      product.customerName
+                        .toLowerCase()
+                        .includes(searchQuery.toLowerCase())
+                    )
+                    .filter((product) =>
+                      product.createdAt
+                        .toLowerCase()
+                        .includes(searchDate.toLowerCase())
+                    )
+                    .map((order, index) => {
+                      if (index < 10) {
+                        return (
+                          <>
+                            <SingleOrder
+                              {...order}
+                              detailId={detailId}
+                              setDetailId={setDetailId}
+                              setOrders={setOrders}
+                              retrieveOrders={retrieveOrders}
+                              setIsModalOpen={setIsModalOpen}
+                            />
+                          </>
+                        );
+                      }
+                      return null;
+                    })}
               </tbody>
             </table>
           </div>

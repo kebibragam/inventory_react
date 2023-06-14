@@ -1,18 +1,22 @@
-import React, { useRef } from "react";
+import React, { useContext, useRef } from "react";
 import { FaEdit, FaSave } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa";
 
 import CustomerService from "../../services/CustomerService";
+import { AuthContext } from "../../context/AuthContext";
 
 const SingleCustomer = ({
   _id,
   name,
   address,
   contact,
+  number,
   isEdit,
   setCustomers,
   retrieveCustomer,
 }) => {
+  const { user } = useContext(AuthContext);
+  console.log(user.role);
   console.log(_id, name, address, contact);
   const edit_focus = useRef();
 
@@ -97,7 +101,10 @@ const SingleCustomer = ({
   function handleEditName(_id, e) {
     let current_val = e.target.value;
     console.log("data=>", current_val);
-
+    if (current_val.trim() === "") {
+      // Handle validation error, e.g., show error message or prevent saving
+      return;
+    }
     setCustomers((pre) => {
       let old_data = [...pre];
 
@@ -115,7 +122,10 @@ const SingleCustomer = ({
   function handleEditAddress(_id, e) {
     let current_val = e.target.value;
     console.log("data=>", current_val);
-
+    if (current_val.trim() === "") {
+      // Handle validation error, e.g., show error message or prevent saving
+      return;
+    }
     setCustomers((pre) => {
       let old_data = [...pre];
 
@@ -176,8 +186,75 @@ const SingleCustomer = ({
     });
   }
 
+  if (user.role === "manager") {
+    return (
+      <tr key={_id}>
+        <td>{number}</td>
+        <td>
+          {isEdit ? (
+            <input
+              ref={edit_focus}
+              value={name}
+              onChange={(e) => handleEditName(_id, e)}
+              // onBlur={handleBlur}
+            />
+          ) : (
+            <>{name}</>
+          )}
+        </td>
+        <td>
+          {isEdit ? (
+            <input
+              type="text"
+              value={address}
+              onChange={(e) => handleEditAddress(_id, e)}
+              // onBlur={handleBlur}
+            />
+          ) : (
+            <>{address}</>
+          )}
+        </td>
+        <td>
+          {isEdit ? (
+            <input
+              type="text"
+              value={contact}
+              onChange={(e) => handleEditContact(_id, e)}
+              // onBlur={handleBlur}
+              pattern="^(98|97|96)\d{8}$"
+              maxLength={10}
+            />
+          ) : (
+            <>{contact}</>
+          )}
+        </td>
+
+        <td>
+          <button
+            className={isEdit ? ` button-icon add` : `button-icon edit`}
+            title={isEdit ? "Add" : "Edit"}
+            data-toggle="tooltip"
+            onClick={() => (isEdit ? saveCustomer(_id) : editCustomer(_id))}
+            // onClick={() => editCustomer(_id)}
+          >
+            {isEdit ? <FaSave /> : <FaEdit />}
+          </button>
+
+          <button
+            className="delete button-icon"
+            title="Delete"
+            data-toggle="tooltip"
+            onClick={() => deleteCustomer(_id)}
+          >
+            <FaTrash />
+          </button>
+        </td>
+      </tr>
+    );
+  }
   return (
     <tr key={_id}>
+      <td>{number}</td>
       <td>
         {isEdit ? (
           <input
@@ -213,27 +290,6 @@ const SingleCustomer = ({
         ) : (
           <>{contact}</>
         )}
-      </td>
-
-      <td>
-        <button
-          className={isEdit ? ` button-icon add` : `button-icon edit`}
-          title={isEdit ? "Add" : "Edit"}
-          data-toggle="tooltip"
-          onClick={() => (isEdit ? saveCustomer(_id) : editCustomer(_id))}
-          // onClick={() => editCustomer(_id)}
-        >
-          {isEdit ? <FaSave /> : <FaEdit />}
-        </button>
-
-        <button
-          className="delete button-icon"
-          title="Delete"
-          data-toggle="tooltip"
-          onClick={() => deleteCustomer(_id)}
-        >
-          <FaTrash />
-        </button>
       </td>
     </tr>
   );

@@ -6,7 +6,7 @@ import { useGlobalContext } from "../context/AuthContext";
 const Login = () => {
   const { addUser, user } = useGlobalContext();
   const userRef = useRef();
-
+  const [role, setRole] = useState(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errMsg, setErrMsg] = useState("");
@@ -32,6 +32,7 @@ const Login = () => {
         // const response = await AuthService.login(credentials);
         AuthService.login(credentials)
           .then((response) => addUser(response.data.user))
+          .then((response) => setRole(response.data.user.role))
           .catch((error) => console.log(error));
 
         // console.log(JSON.stringify(response?.data));
@@ -40,7 +41,12 @@ const Login = () => {
         // const userId = await response.data.user.userId;
         // const role = await response.data.user.role;
         // addUser({ token, userId, name, role });
-        navigate("/");
+        if (role === "cashier") {
+          navigate("/home");
+        }
+        if (role === "manager") {
+          navigate("/dashboard");
+        }
         setEmail("");
         setPassword("");
       }
@@ -60,7 +66,7 @@ const Login = () => {
     <section>
       {user &&
         (user.role === "manager" ? (
-          <Navigate to="/" />
+          <Navigate to="/dashboard" />
         ) : (
           <Navigate to="/home" />
         ))}
@@ -121,11 +127,11 @@ const Login = () => {
                           required
                         />
                       </div>
-                      <div className="d-flex align-items-center justify-content-between mb-4">
+                      {/* <div className="d-flex align-items-center justify-content-between mb-4">
                         <a className="text-primary fw-bold" href="./index.html">
                           Forgot Password ?
                         </a>
-                      </div>
+                      </div> */}
                       <button
                         type="submit"
                         className="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2"

@@ -67,6 +67,7 @@ body {
   color: var(--clr-grey-1);
   line-height: 1.5;
   font-size: 0.875rem;
+ 
 }
 
 ul {
@@ -168,7 +169,7 @@ p {
 }
 
 .table-wrapper {
-  width: 700px;
+  width:fit-content;
   margin: 30px auto;
   // background: #fff;
   background: #7DA0CA;
@@ -423,6 +424,65 @@ nav.nav-custom {
    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
    background: linear-gradient(to right bottom, rgba(246, 211, 101, 1), rgba(253, 160, 133, 1))
  }
+
+ footer.footer{
+  background-color: #13448c !important;
+  color: #FFF !important;
+ }
+ .container {
+   max-width: 800px;
+   margin: 0 auto;
+   padding: 20px;
+   text-align: center;
+ }
+
+ h1 {
+   color: #333;
+ }
+
+ p {
+   color: #666;
+ }
+
+ .image-container {
+   margin-top: 30px;
+ }.product-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.product-list li {
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  width: 200px;
+}
+
+.product-list li img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  margin-bottom: 10px;
+}.product-list li h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #333;
+}
+
+.product-list li p {
+  margin: 0;
+  color: #666;
+}
+
+.white-color{
+  color: #fff !important;
+}
 @import '~bootstrap/scss/bootstrap.scss';
 
 

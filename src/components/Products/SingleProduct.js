@@ -1,9 +1,9 @@
-import React, { useRef } from "react";
+import React, { useContext, useRef } from "react";
 import { FaEdit, FaSave } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa";
 
 import ProductService from "../../services/ProductService";
-
+import { AuthContext } from "../../context/AuthContext";
 const SingleProduct = ({
   _id,
   name,
@@ -13,6 +13,7 @@ const SingleProduct = ({
   setProducts,
   retrieveProducts,
 }) => {
+  const { user } = useContext(AuthContext);
   const edit_focus = useRef();
 
   const editProduct = (_id) => {
@@ -170,7 +171,83 @@ const SingleProduct = ({
       return new_data;
     });
   }
+  if (user.role === "manager") {
+    return (
+      <tr key={_id}>
+        <td>
+          {isEdit ? (
+            <input
+              ref={edit_focus}
+              value={name}
+              onChange={(e) => handleEditName(_id, e)}
+              // onBlur={handleBlur}
+            />
+          ) : (
+            <>{name}</>
+          )}
+        </td>
+        <td>
+          {isEdit ? (
+            <input
+              type="number"
+              value={price}
+              onChange={(e) => handleEditPrice(_id, e)}
+              // onBlur={handleBlur}
+            />
+          ) : (
+            <>{price}</>
+          )}
+        </td>
+        <td>
+          {isEdit ? (
+            <input
+              type="number"
+              value={quantity}
+              onChange={(e) => handleEditQuantity(_id, e)}
+              // onBlur={handleBlur}
+            />
+          ) : (
+            <>{quantity}</>
+          )}
+        </td>
+        {/* <td>
+        {isEdit ? (
+          <select
+            name="role"
+            id="role"
+            value={role}
+            onChange={(e) => handleEditRole(_id, e)}
+          >
+            <option value="cashier">cashier</option>
+            <option value="manager">manager</option>
+          </select>
+        ) : (
+          <>{role}</>
+        )}
+      </td> */}
 
+        <td>
+          <button
+            className={isEdit ? ` button-icon add` : `button-icon edit`}
+            title={isEdit ? "Add" : "Edit"}
+            data-toggle="tooltip"
+            onClick={() => (isEdit ? saveProduct(_id) : editProduct(_id))}
+          >
+            {isEdit ? <FaSave /> : <FaEdit />}
+          </button>
+
+          <button
+            className="delete button-icon"
+            title="Delete"
+            data-toggle="tooltip"
+            onClick={() => deleteProduct(_id)}
+          >
+            <FaTrash />
+          </button>
+        </td>
+      </tr>
+    );
+  }
   return (
     <tr key={_id}>
       <td>
@@ -208,41 +285,6 @@ const SingleProduct = ({
         ) : (
           <>{quantity}</>
         )}
-      </td>
-      {/* <td>
-        {isEdit ? (
-          <select
-            name="role"
-            id="role"
-            value={role}
-            onChange={(e) => handleEditRole(_id, e)}
-          >
-            <option value="cashier">cashier</option>
-            <option value="manager">manager</option>
-          </select>
-        ) : (
-          <>{role}</>
-        )}
-      </td> */}
-
-      <td>
-        <button
-          className={isEdit ? ` button-icon add` : `button-icon edit`}
-          title={isEdit ? "Add" : "Edit"}
-          data-toggle="tooltip"
-          onClick={() => (isEdit ? saveProduct(_id) : editProduct(_id))}
-        >
-          {isEdit ? <FaSave /> : <FaEdit />}
-        </button>
-
-        <button
-          className="delete button-icon"
-          title="Delete"
-          data-toggle="tooltip"
-          onClick={() => deleteProduct(_id)}
-        >
-          <FaTrash />
-        </button>
       </td>
     </tr>
   );

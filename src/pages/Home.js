@@ -97,7 +97,7 @@ const Home = () => {
 
   return (
     <div className="container mt-5">
-      <h1 className="mb-4">Order Taking Page</h1>
+      {/* <h1 className="mb-4">Order Taking Page</h1> */}
 
       <div className="row">
         <div className="col-md-6">
