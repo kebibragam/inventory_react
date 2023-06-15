@@ -296,7 +296,7 @@ const SingleProduct = ({
               disabled
             />
           ) : (
-            <>{sellingPrice}</>
+            <>{profit}</>
           )}
         </td>
 
@@ -403,7 +403,7 @@ const SingleProduct = ({
               disabled
             />
           ) : (
-            <>{sellingPrice}</>
+            <>{profit}</>
           )}
         </td>
 
@@ -472,7 +472,7 @@ const SingleProduct = ({
           <>{name}</>
         )}
       </td>
-      <td>
+      {/* <td>
         {isEdit ? (
           <input
             type="text"
@@ -485,7 +485,7 @@ const SingleProduct = ({
         ) : (
           <>{purchasePrice}</>
         )}
-      </td>
+      </td> */}
       <td>
         {isEdit ? (
           <input

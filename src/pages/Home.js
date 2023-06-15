@@ -62,7 +62,7 @@ const Home = () => {
   const calculateTotal = () => {
     let total = 0;
     selectedProducts.forEach((product) => {
-      total += product.price * product.quantity;
+      total += product.sellingPrice * product.quantity;
     });
     return total;
   };
@@ -118,7 +118,7 @@ const Home = () => {
                 className="list-group-item d-flex justify-content-between align-items-center"
               >
                 <div>
-                  {product.name} - Rs {product.price}
+                  {product.name} - Rs {product.sellingPrice}
                 </div>
                 <div>
                   <span className="badge bg-primary rounded-pill">
@@ -146,7 +146,8 @@ const Home = () => {
                 className="list-group-item d-flex justify-content-between align-items-center"
               >
                 <div>
-                  {product.name} - Rs {product.price} x {product.quantity}
+                  {product.name} - Rs {product.sellingPrice} x{" "}
+                  {product.quantity}
                 </div>
                 <div>
                   <button

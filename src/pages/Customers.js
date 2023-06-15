@@ -111,7 +111,7 @@ const Customers = () => {
                   <th>Name</th>
                   <th>Address</th>
                   <th>Contact</th>
-                  <th>Actions</th>
+                  {user.role === "manager" && <th>Actions</th>}
                 </tr>
               </thead>
               <tbody>{renderedCustomers}</tbody>

@@ -69,12 +69,12 @@ const Dashboard = () => {
                 <tbody>
                   {lowStockProduct &&
                     lowStockProduct.map((product) => {
-                      const { _id, name, price, quantity } = product;
+                      const { _id, name, sellingPrice, quantity } = product;
                       return (
                         <tr key={_id}>
                           <td>{name}</td>
                           <td>{quantity}</td>
-                          <td>{price}</td>
+                          <td>{sellingPrice}</td>
                         </tr>
                       );
                     })}
