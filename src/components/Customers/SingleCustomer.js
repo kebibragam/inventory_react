@@ -5,6 +5,7 @@ import { FaTrash } from "react-icons/fa";
 import CustomerService from "../../services/CustomerService";
 import { AuthContext } from "../../context/AuthContext";
 
+import { validateNumber } from "../../utils/validateNumber";
 const SingleCustomer = ({
   _id,
   name,
@@ -47,6 +48,10 @@ const SingleCustomer = ({
     if (_id == null || _id == "") {
       return;
     }
+    if (Math.abs(contact).toString().length < 10) {
+      alert("Enter 10 digit number");
+      return;
+    }
     if (_id == "new") {
       setCustomers((pre) => {
         let old_data = [...pre];
@@ -59,6 +64,7 @@ const SingleCustomer = ({
             delete Customer._id &&
             delete Customer.isEdit
         );
+
         // console.log("updated data", data[0]);
         CustomerService.createCustomer(data[0]).then((response) => {
           let tempCustomer = response.data.Customer;
@@ -220,9 +226,9 @@ const SingleCustomer = ({
               type="text"
               value={contact}
               onChange={(e) => handleEditContact(_id, e)}
-              // onBlur={handleBlur}
-              pattern="^(98|97|96)\d{8}$"
+              // pattern="^(98|97|96)\d{8}$"
               maxLength={10}
+              onKeyDown={validateNumber}
             />
           ) : (
             <>{contact}</>

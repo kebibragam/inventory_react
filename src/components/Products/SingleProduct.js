@@ -4,10 +4,13 @@ import { FaTrash } from "react-icons/fa";
 
 import ProductService from "../../services/ProductService";
 import { AuthContext } from "../../context/AuthContext";
+
 const SingleProduct = ({
   _id,
   name,
-  price,
+  purchasePrice,
+  sellingPrice,
+  profit,
   quantity,
   isEdit,
   setProducts,
@@ -40,8 +43,17 @@ const SingleProduct = ({
       return old_data;
     });
   };
+
   const saveProduct = (_id) => {
     if (_id == null || _id == "") {
+      return;
+    }
+    if (sellingPrice <= purchasePrice) {
+      alert("Invalid selling price");
+      return;
+    }
+    if (purchasePrice <= 0) {
+      alert("Invalid purchase price");
       return;
     }
     if (_id == "new") {
@@ -55,6 +67,16 @@ const SingleProduct = ({
             product._id === _id && delete product._id && delete product.isEdit
         );
         // console.log("updated data", data[0]);
+
+        // console.log("sel", sellingPrice);
+        // console.log("spu", purchasePrice);
+        if (!sellingPrice) {
+          alert("Invalid Selling Price");
+          // old_data = old_data.filter((a) => a._id !== undefined);
+          // console.log(old_data, "new");
+          console.log(pre);
+          return pre;
+        }
         ProductService.createProduct(data[0]).then((response) => {
           let tempProduct = response.data.product;
           tempProduct = { ...tempProduct, isEdit: false };
@@ -63,9 +85,9 @@ const SingleProduct = ({
         old_data = old_data.filter((a) => a._id !== undefined);
         console.log(old_data, "new");
 
+        setTimeout(() => retrieveProducts(), 500);
         return old_data;
       });
-      setTimeout(() => retrieveProducts(), 500);
     } else {
       setProducts((pre) => {
         let old_data = [...pre];
@@ -108,24 +130,67 @@ const SingleProduct = ({
       return old_data;
     });
   }
-  function handleEditPrice(_id, e) {
+
+  function handleEditPurchasePrice(_id, e) {
     let current_val = e.target.value;
     console.log("data=>", current_val);
 
     setProducts((pre) => {
       let old_data = [...pre];
 
-      let index = old_data.map((a) => a._id).findIndex((a) => a == _id);
+      let index = old_data.map((a) => a._id).findIndex((a) => a === _id);
 
-      if (index == -1) {
+      if (index === -1) {
         return;
       }
 
-      old_data[index].price = current_val;
+      let sellingPrice = parseFloat(old_data[index].sellingPrice);
+
+      old_data[index].purchasePrice = current_val;
+
+      // Calculate profit if selling price is greater than or equal to purchase price
+      if (sellingPrice >= parseFloat(current_val)) {
+        old_data[index].profit = (
+          sellingPrice - parseFloat(current_val)
+        ).toFixed(2);
+      }
 
       return old_data;
     });
   }
+
+  function handleEditSellingPrice(_id, e) {
+    let current_val = e.target.value;
+    if (current_val !== Number) {
+      e.preventDefault();
+    }
+    console.log("data=>", current_val);
+
+    setProducts((pre) => {
+      let old_data = [...pre];
+
+      let index = old_data.map((a) => a._id).findIndex((a) => a === _id);
+
+      if (index === -1) {
+        return;
+      }
+
+      let purchasePrice = parseFloat(old_data[index].purchasePrice);
+
+      // Validate if selling price is greater than purchase price
+      if (
+        parseFloat(current_val) >= purchasePrice &&
+        parseFloat(current_val) > 0
+      ) {
+        old_data[index].sellingPrice = current_val;
+        old_data[index].profit = (
+          parseFloat(current_val) - purchasePrice
+        ).toFixed(2);
+      }
+      return old_data;
+    });
+  }
+
   function handleEditQuantity(_id, e) {
     let current_val = e.target.value;
     console.log("data=>", current_val);
@@ -145,18 +210,6 @@ const SingleProduct = ({
     });
   }
 
-  // function handleBlur() {
-  //   setProducts((pre) => {
-  //     let old_data = [...pre];
-  //     old_data = old_data.map((a) => ({
-  //       ...a,
-  //       isEdit: false,
-  //     }));
-
-  //     return old_data;
-  //   });
-  // }
-
   function deleteProduct(_id) {
     if (_id && _id !== "new") {
       ProductService.deleteProduct(_id);
@@ -170,6 +223,134 @@ const SingleProduct = ({
       console.log("new", new_data);
       return new_data;
     });
+  }
+  const validateNumber = (e) => {
+    const key = e.key;
+
+    // Allow backspace, delete, and arrow keys
+    if (
+      key === "Backspace" ||
+      key === "Delete" ||
+      key === "ArrowLeft" ||
+      key === "ArrowRight"
+    ) {
+      return;
+    }
+
+    // Prevent input if the value is not a number from 0 to 9
+    if (!/^[0-9]$/.test(key)) {
+      e.preventDefault();
+    }
+  };
+  // console.log("id", _id);
+  if (_id === "new") {
+    return (
+      <tr key={_id}>
+        <td>
+          {isEdit ? (
+            <input
+              ref={edit_focus}
+              value={name}
+              onChange={(e) => handleEditName(_id, e)}
+              // onBlur={handleBlur}
+            />
+          ) : (
+            <>{name}</>
+          )}
+        </td>
+        <td>
+          {isEdit ? (
+            <input
+              type="text"
+              value={purchasePrice}
+              onChange={(e) => handleEditPurchasePrice(_id, e)}
+              // onBlur={handleBlur}
+              pattern="[0-9]"
+              onKeyDown={validateNumber}
+            />
+          ) : (
+            <>{purchasePrice}</>
+          )}
+        </td>
+        <td>
+          {isEdit ? (
+            <input
+              type="text"
+              value={sellingPrice}
+              onChange={(e) => handleEditSellingPrice(_id, e)}
+              // onBlur={handleBlur}
+              pattern="[0-9]"
+              onKeyDown={validateNumber}
+            />
+          ) : (
+            <>{sellingPrice}</>
+          )}
+        </td>
+        <td>
+          {isEdit ? (
+            <input
+              type="text"
+              value={profit}
+              // onChange={(e) => handleEditSellingPrice(_id, e)}
+              // onBlur={handleBlur}
+              disabled
+            />
+          ) : (
+            <>{sellingPrice}</>
+          )}
+        </td>
+
+        <td>
+          {isEdit ? (
+            <input
+              type="text"
+              value={quantity}
+              onChange={(e) => handleEditQuantity(_id, e)}
+              // onBlur={handleBlur}
+              pattern="[0-9]"
+              onKeyDown={validateNumber}
+            />
+          ) : (
+            <>{quantity}</>
+          )}
+        </td>
+        {/* <td>
+        {isEdit ? (
+          <select
+            name="role"
+            id="role"
+            value={role}
+            onChange={(e) => handleEditRole(_id, e)}
+          >
+            <option value="cashier">cashier</option>
+            <option value="manager">manager</option>
+          </select>
+        ) : (
+          <>{role}</>
+        )}
+      </td> */}
+
+        <td>
+          <button
+            className={isEdit ? ` button-icon add` : `button-icon edit`}
+            title={isEdit ? "Add" : "Edit"}
+            data-toggle="tooltip"
+            onClick={() => (isEdit ? saveProduct(_id) : editProduct(_id))}
+          >
+            {isEdit ? <FaSave /> : <FaEdit />}
+          </button>
+
+          <button
+            className="delete button-icon"
+            title="Delete"
+            data-toggle="tooltip"
+            onClick={() => deleteProduct(_id)}
+          >
+            <FaTrash />
+          </button>
+        </td>
+      </tr>
+    );
   }
   if (user.role === "manager") {
     return (
@@ -190,14 +371,42 @@ const SingleProduct = ({
           {isEdit ? (
             <input
               type="number"
-              value={price}
-              onChange={(e) => handleEditPrice(_id, e)}
+              value={purchasePrice}
+              onChange={(e) => handleEditPurchasePrice(_id, e)}
+              // onBlur={handleBlur}
+              onKeyDown={validateNumber}
+            />
+          ) : (
+            <>{purchasePrice}</>
+          )}
+        </td>
+        <td>
+          {isEdit ? (
+            <input
+              type="number"
+              value={sellingPrice}
+              onChange={(e) => handleEditSellingPrice(_id, e)}
+              onKeyDown={validateNumber}
               // onBlur={handleBlur}
             />
           ) : (
-            <>{price}</>
+            <>{sellingPrice}</>
           )}
         </td>
+        <td>
+          {isEdit ? (
+            <input
+              type="number"
+              value={profit}
+              // onChange={(e) => handleEditSellingPrice(_id, e)}
+              // onBlur={handleBlur}
+              disabled
+            />
+          ) : (
+            <>{sellingPrice}</>
+          )}
+        </td>
+
         <td>
           {isEdit ? (
             <input
@@ -205,6 +414,7 @@ const SingleProduct = ({
               value={quantity}
               onChange={(e) => handleEditQuantity(_id, e)}
               // onBlur={handleBlur}
+              onKeyDown={validateNumber}
             />
           ) : (
             <>{quantity}</>
@@ -265,22 +475,38 @@ const SingleProduct = ({
       <td>
         {isEdit ? (
           <input
-            type="number"
-            value={price}
-            onChange={(e) => handleEditPrice(_id, e)}
+            type="text"
+            min={0}
+            value={purchasePrice}
+            onChange={(e) => handleEditPurchasePrice(_id, e)}
+            onKeyDown={validateNumber}
             // onBlur={handleBlur}
           />
         ) : (
-          <>{price}</>
+          <>{purchasePrice}</>
         )}
       </td>
       <td>
         {isEdit ? (
           <input
-            type="number"
+            type="text"
+            value={sellingPrice}
+            onChange={(e) => handleEditSellingPrice(_id, e)}
+            // onBlur={handleBlur}
+            onKeyDown={validateNumber}
+          />
+        ) : (
+          <>{sellingPrice}</>
+        )}
+      </td>
+      <td>
+        {isEdit ? (
+          <input
+            type="text"
             value={quantity}
             onChange={(e) => handleEditQuantity(_id, e)}
             // onBlur={handleBlur}
+            onKeyDown={validateNumber}
           />
         ) : (
           <>{quantity}</>
