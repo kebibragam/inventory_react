@@ -71,9 +71,11 @@ const Home = () => {
     setSearchTerm(event.target.value);
   };
 
-  const filteredProducts = products.filter((product) =>
-    product.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredProducts = products
+    .filter((product) =>
+      product.name.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    .slice(0, 10);
 
   const handleCustomerIdChange = (event) => {
     setCustomerId(event.target.value);
@@ -112,7 +114,7 @@ const Home = () => {
             />
           </div>
           <ul className="list-group">
-            {filteredProducts.map((product) => (
+            {filteredProducts.map((product, index) => (
               <li
                 key={product._id}
                 className="list-group-item d-flex justify-content-between align-items-center"

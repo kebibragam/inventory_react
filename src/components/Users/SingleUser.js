@@ -3,11 +3,13 @@ import { FaEdit, FaSave } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa";
 
 import UserService from "../../services/UserService";
+import { validateNumber } from "../../utils/validateNumber";
 
 const SingleUser = ({
   _id,
   name,
   email,
+  contact,
   isEdit,
   role,
   setUsers,
@@ -141,7 +143,24 @@ const SingleUser = ({
       return old_data;
     });
   }
+  function handleEditContact(_id, e) {
+    let current_val = e.target.value;
+    console.log("data=>", current_val);
 
+    setUsers((pre) => {
+      let old_data = [...pre];
+
+      let index = old_data.map((a) => a._id).findIndex((a) => a == _id);
+
+      if (index == -1) {
+        return;
+      }
+
+      old_data[index].contact = current_val;
+
+      return old_data;
+    });
+  }
   // function handleBlur() {
   //   setUsers((pre) => {
   //     let old_data = [...pre];
@@ -193,6 +212,20 @@ const SingleUser = ({
           />
         ) : (
           <>{email}</>
+        )}
+      </td>
+      <td>
+        {isEdit ? (
+          <input
+            type="text"
+            value={contact}
+            onChange={(e) => handleEditContact(_id, e)}
+            // pattern="^(98|97|96)\d{8}$"
+            maxLength={10}
+            onKeyDown={validateNumber}
+          />
+        ) : (
+          <>{contact}</>
         )}
       </td>
       <td>

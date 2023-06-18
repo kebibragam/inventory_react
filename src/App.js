@@ -18,6 +18,7 @@ import Users from "./pages/Users";
 import RegisterUser from "./pages/RegisterUser";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
+import SalesReport from "./pages/SalesReport";
 import NotFound from "./pages/NotFound";
 import Index from "./pages/Index";
 
@@ -115,6 +116,15 @@ function App() {
           element={
             <ProtectedRoute>
               <Profile />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          exact
+          path="/salesreport"
+          element={
+            <ProtectedRoute>
+              <SalesReport />
             </ProtectedRoute>
           }
         />

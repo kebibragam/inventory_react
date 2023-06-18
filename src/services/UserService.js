@@ -12,10 +12,11 @@ const getSingleUser = (id) => {
   return http.get(`/user/${id}`);
 };
 const updateUser = ({ _id, data }) => {
-  const { name, email, role } = data[0];
+  const { name, email, contact, role } = data[0];
   const updatedUser = {
     name,
     email,
+    contact,
     role,
   };
   // console.log(updatedUser, "updated");

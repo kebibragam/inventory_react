@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import OrderService from "../services/OrderService";
 import { FaTimes } from "react-icons/fa";
 import SingleOrder from "../components/SingleOrder";
-
+import { AuthContext } from "../context/AuthContext";
 const Orders = () => {
+  const { user } = useContext(AuthContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [orders, setOrders] = useState([]);
   const [detailId, setDetailId] = useState(null);
@@ -135,6 +136,7 @@ const Orders = () => {
                 <tr>
                   <th>Name</th>
                   <th>Total</th>
+                  {user.role === "manager" && <th>Profit</th>}
                   <th>Created at</th>
                   <th>Details</th>
                 </tr>

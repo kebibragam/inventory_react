@@ -13,6 +13,7 @@ const Users = () => {
         _id: "new",
         name: "",
         email: "",
+        coontact: 0,
         role: "cashier",
         password: "password",
         isEdit: "true",
@@ -73,6 +74,7 @@ const Users = () => {
                 <tr>
                   <th>Name</th>
                   <th>Email</th>
+                  <th>Phone</th>
                   <th>Role</th>
                   <th>Actions</th>
                 </tr>

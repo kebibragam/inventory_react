@@ -249,6 +249,16 @@ const Navbar = () => {
                     className="nav-link"
                     activeclassname="active"
                     aria-current="page"
+                    to="/salesreport"
+                  >
+                    <span data-bs-dismiss="offcanvas">Sales Report</span>
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink
+                    className="nav-link"
+                    activeclassname="active"
+                    aria-current="page"
                     to="/products"
                   >
                     <span data-bs-dismiss="offcanvas">Products</span>
