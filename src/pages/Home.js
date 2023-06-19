@@ -91,11 +91,19 @@ const Home = () => {
 
     console.log(order);
     // You can make an API call here to send the order details to the server
-    OrderService.createOrder(order);
+    OrderService.createOrder(order)
+      .then((res) => {
+        setSelectedProducts([]);
+        setCustomerId("");
+      })
+      .catch((err) => {
+        if (err) {
+          alert("Invalid customer id");
+          return;
+        }
+      });
 
     // Reset selected products and customer ID
-    setSelectedProducts([]);
-    setCustomerId("");
   };
 
   return (

@@ -52,7 +52,7 @@ const Index = () => {
                 <h6 className="text-uppercase fw-bold mb-4">Contact</h6>
                 <p className="white-color">
                   <FaLocationArrow />
-                  Chandragiri-&, Kathmandu, Nepal
+                  Chandragiri, Kathmandu, Nepal
                 </p>
                 <p className="white-color">
                   <FaEnvelope />
