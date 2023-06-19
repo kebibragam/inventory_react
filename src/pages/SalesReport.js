@@ -98,7 +98,7 @@ const SalesReport = () => {
   const colors = ["#8884d8", "#82ca9d"];
   // Prepare data for line chart
   const lineChartData = weeklyData.map(([date, sales]) => ({ date, sales }));
-  console.log("data", weeklyData);
+  console.log("data", pieChartDataQuarterly);
   return (
     <>
       <div className="container">
@@ -220,7 +220,7 @@ const SalesReport = () => {
             </div>
           </div>
 
-          <div className="col-md-4">
+          <div className="col-md-6">
             <div className="chart-container p-5">
               <h3>Quarterly Sales and Profit</h3>
 
@@ -280,7 +280,6 @@ const SalesReport = () => {
               </ResponsiveContainer>
             </div>
           </div>
-
           <div className="col-md-6">
             <div className="chart-container p-5">
               <h3>Total Sales and Profit</h3>

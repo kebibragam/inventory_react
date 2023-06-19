@@ -58,6 +58,10 @@ const SingleProduct = ({
       alert("Invalid purchase price");
       return;
     }
+    if (expiryDate === getCurrentDate()) {
+      alert("Invalid expiry date");
+      return;
+    }
     if (_id == "new") {
       setProducts((pre) => {
         let old_data = [...pre];

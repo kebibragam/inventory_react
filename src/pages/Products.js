@@ -3,6 +3,7 @@ import ProductService from "../services/ProductService";
 import { FaPlus } from "react-icons/fa";
 import SingleProduct from "../components/Products/SingleProduct";
 import { AuthContext } from "../context/AuthContext";
+import getCurrentDate from "../utils/currentDate";
 
 const Products = () => {
   const { user } = useContext(AuthContext);
@@ -18,6 +19,7 @@ const Products = () => {
         _id: "new",
         name: "",
         quantity: 0,
+        expiryDate: getCurrentDate(),
         purchasePrice: 0,
         profit: 0,
         isEdit: "true",
