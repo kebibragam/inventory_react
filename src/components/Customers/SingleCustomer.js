@@ -192,72 +192,7 @@ const SingleCustomer = ({
     });
   }
 
-  if (user.role === "manager") {
-    return (
-      <tr key={_id}>
-        <td>{number}</td>
-        <td>
-          {isEdit ? (
-            <input
-              ref={edit_focus}
-              value={name}
-              onChange={(e) => handleEditName(_id, e)}
-              // onBlur={handleBlur}
-            />
-          ) : (
-            <>{name}</>
-          )}
-        </td>
-        <td>
-          {isEdit ? (
-            <input
-              type="text"
-              value={address}
-              onChange={(e) => handleEditAddress(_id, e)}
-              // onBlur={handleBlur}
-            />
-          ) : (
-            <>{address}</>
-          )}
-        </td>
-        <td>
-          {isEdit ? (
-            <input
-              type="text"
-              value={contact}
-              onChange={(e) => handleEditContact(_id, e)}
-              // pattern="^(98|97|96)\d{8}$"
-              maxLength={10}
-              onKeyDown={validateNumber}
-            />
-          ) : (
-            <>{contact}</>
-          )}
-        </td>
-
-        <td>
-          <button
-            className={isEdit ? ` button-icon add` : `button-icon edit`}
-            title={isEdit ? "Add" : "Edit"}
-            data-toggle="tooltip"
-            onClick={() => (isEdit ? saveCustomer(_id) : editCustomer(_id))}
-            // onClick={() => editCustomer(_id)}
-          >
-            {isEdit ? <FaSave /> : <FaEdit />}
-          </button>
-
-          <button
-            className="delete button-icon"
-            title="Delete"
-            data-toggle="tooltip"
-            onClick={() => deleteCustomer(_id)}
-          >
-            <FaTrash />
-          </button>
-        </td>
-      </tr>
-    );
-  }
+  // if (user.role === "manager") {
   return (
     <tr key={_id}>
       <td>{number}</td>
@@ -291,14 +226,79 @@ const SingleCustomer = ({
             type="text"
             value={contact}
             onChange={(e) => handleEditContact(_id, e)}
-            // onBlur={handleBlur}
+            // pattern="^(98|97|96)\d{8}$"
+            maxLength={10}
+            onKeyDown={validateNumber}
           />
         ) : (
           <>{contact}</>
         )}
       </td>
+
+      <td>
+        <button
+          className={isEdit ? ` button-icon add` : `button-icon edit`}
+          title={isEdit ? "Add" : "Edit"}
+          data-toggle="tooltip"
+          onClick={() => (isEdit ? saveCustomer(_id) : editCustomer(_id))}
+          // onClick={() => editCustomer(_id)}
+        >
+          {isEdit ? <FaSave /> : <FaEdit />}
+        </button>
+
+        <button
+          className="delete button-icon"
+          title="Delete"
+          data-toggle="tooltip"
+          onClick={() => deleteCustomer(_id)}
+        >
+          <FaTrash />
+        </button>
+      </td>
     </tr>
   );
+  // }
+  // return (
+  //   <tr key={_id}>
+  //     <td>{number}</td>
+  //     <td>
+  //       {isEdit ? (
+  //         <input
+  //           ref={edit_focus}
+  //           value={name}
+  //           onChange={(e) => handleEditName(_id, e)}
+  //           // onBlur={handleBlur}
+  //         />
+  //       ) : (
+  //         <>{name}</>
+  //       )}
+  //     </td>
+  //     <td>
+  //       {isEdit ? (
+  //         <input
+  //           type="text"
+  //           value={address}
+  //           onChange={(e) => handleEditAddress(_id, e)}
+  //           // onBlur={handleBlur}
+  //         />
+  //       ) : (
+  //         <>{address}</>
+  //       )}
+  //     </td>
+  //     <td>
+  //       {isEdit ? (
+  //         <input
+  //           type="text"
+  //           value={contact}
+  //           onChange={(e) => handleEditContact(_id, e)}
+  //           // onBlur={handleBlur}
+  //         />
+  //       ) : (
+  //         <>{contact}</>
+  //       )}
+  //     </td>
+  //   </tr>
+  // );
 };
 
 export default SingleCustomer;

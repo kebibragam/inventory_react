@@ -6,6 +6,9 @@ const mostSold = () => {
 const lowstock = () => {
   return http.get("/stats/lowstock");
 };
+const expiryProducts = () => {
+  return http.get("/stats/getExpiryProducts");
+};
 const salesAndProfit = () => {
   return http.get("/stats/salesandprofit");
 };
@@ -17,6 +20,7 @@ const weeklySalesData = () => {
 const StatsService = {
   mostSold,
   lowstock,
+  expiryProducts,
   salesAndProfit,
   weeklySalesData,
 };

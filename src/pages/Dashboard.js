@@ -19,6 +19,7 @@ const Dashboard = () => {
   // console.log(user, "user");
   const [mostSoldProduct, setMostsoldProduct] = useState([]);
   const [lowStockProduct, setLowStockProduct] = useState([]);
+  const [expiryProduct, setExpiryProduct] = useState([]);
 
   const getLowStock = () =>
     StatsService.lowstock().then((res) => {
@@ -35,9 +36,16 @@ const Dashboard = () => {
       setMostsoldProduct(products);
     });
   };
+  const getExpiryProducts = () => {
+    StatsService.expiryProducts().then((res) => {
+      const products = res.data.slice(0, 5);
+      setExpiryProduct(products);
+    });
+  };
   useEffect(() => {
     user && getLowStock();
     user && getMostSold();
+    user && getExpiryProducts();
   }, [user]);
 
   return (
@@ -75,6 +83,46 @@ const Dashboard = () => {
                           <td>{name}</td>
                           <td>{quantity}</td>
                           <td>{sellingPrice}</td>
+                        </tr>
+                      );
+                    })}
+                </tbody>
+              </table>
+            </div>
+            {/* </div>
+            </div> */}
+          </div>
+          <div className="col-lg">
+            {/* <div className="container-xl">
+              <div className="table-responsive"> */}
+            <div className="table-wrapper">
+              <div className="table-title">
+                <div className="row">
+                  <div className="col-sm-14 text-center">
+                    <h2>
+                      <b>About to expire Products</b>
+                    </h2>
+                  </div>
+                </div>
+              </div>
+
+              <table className="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Expiry Date</th>
+                    <th>Quantity</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {expiryProduct &&
+                    expiryProduct.map((product) => {
+                      const { _id, name, expiryDate, quantity } = product;
+                      return (
+                        <tr key={_id}>
+                          <td>{name}</td>
+                          <td>{expiryDate.slice(0, 10)}</td>
+                          <td>{quantity}</td>
                         </tr>
                       );
                     })}

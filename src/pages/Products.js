@@ -121,6 +121,7 @@ const Products = () => {
                     <th>Selling Price</th>
                     <th>Profit</th>
                     <th>Quantity</th>
+                    <th>Expiry Date</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -178,6 +179,7 @@ const Products = () => {
                   <th>Name</th>
                   <th>Price</th>
                   <th>Quantity</th>
+                  <th>Expiry Date</th>
                 </tr>
               </thead>
               <tbody>{renderProducts()}</tbody>

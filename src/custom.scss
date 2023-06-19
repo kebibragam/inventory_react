@@ -483,23 +483,10 @@ nav.nav-custom {
 .white-color{
   color: #fff !important;
 }
-
-// .container {
-//   display: flex;
-//   flex-wrap: wrap;
-//   justify-content: space-between;
-// }
-
-// .card {
-//   width: 100%;
-//   margin-bottom: 1rem;
-// }
-
-// @media (min-width: 768px) {
-//   .card {
-//     width: calc(50% - 1rem);
-//   }
-// }
+.dark-blue{
+  background-color: #13448c !important;
+  color: #fff;
+}
 @import '~bootstrap/scss/bootstrap.scss';
 
 

@@ -11,10 +11,15 @@ const getSingleProduct = (_id) => {
   return http.get(`/product/${_id}`);
 };
 const updateProduct = ({ _id, data }) => {
-  const { name, price, quantity } = data[0];
+  const { name, sellingPrice, costPrice, profit, expiryDate, quantity } =
+    data[0];
+  console.log(expiryDate);
   data = {
     name,
-    price,
+    sellingPrice,
+    costPrice,
+    profit,
+    expiryDate,
     quantity,
   };
   return http.patch(`/product/${_id}`, data);

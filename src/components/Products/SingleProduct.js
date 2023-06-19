@@ -1,6 +1,7 @@
 import React, { useContext, useRef } from "react";
 import { FaEdit, FaSave } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa";
+import getCurrentDate from "../../utils/currentDate";
 
 import ProductService from "../../services/ProductService";
 import { AuthContext } from "../../context/AuthContext";
@@ -12,6 +13,7 @@ const SingleProduct = ({
   sellingPrice,
   profit,
   quantity,
+  expiryDate,
   isEdit,
   setProducts,
   retrieveProducts,
@@ -224,6 +226,20 @@ const SingleProduct = ({
       return new_data;
     });
   }
+  const handleEditExpiryDate = (_id, e) => {
+    const newExpiryDate = e.target.value.slice(0, 10);
+
+    setProducts((prevProducts) => {
+      const updatedProducts = prevProducts.map((product) => {
+        if (product._id === _id) {
+          return { ...product, expiryDate: newExpiryDate };
+        }
+        return product;
+      });
+
+      return updatedProducts;
+    });
+  };
   const validateNumber = (e) => {
     const key = e.key;
 
@@ -312,6 +328,20 @@ const SingleProduct = ({
             />
           ) : (
             <>{quantity}</>
+          )}
+        </td>
+        <td>
+          {isEdit ? (
+            <input
+              type="date"
+              value={expiryDate.slice(0, 10)}
+              onChange={(e) => handleEditExpiryDate(_id, e)}
+              min={getCurrentDate()}
+              // onBlur={handleBlur}
+              // onKeyDown={validateNumber}
+            />
+          ) : (
+            <>{expiryDate.slice(0, 10)}</>
           )}
         </td>
         {/* <td>
@@ -420,21 +450,20 @@ const SingleProduct = ({
             <>{quantity}</>
           )}
         </td>
-        {/* <td>
-        {isEdit ? (
-          <select
-            name="role"
-            id="role"
-            value={role}
-            onChange={(e) => handleEditRole(_id, e)}
-          >
-            <option value="cashier">cashier</option>
-            <option value="manager">manager</option>
-          </select>
-        ) : (
-          <>{role}</>
-        )}
-      </td> */}
+        <td>
+          {isEdit ? (
+            <input
+              type="date"
+              value={expiryDate.slice(0, 10)}
+              onChange={(e) => handleEditExpiryDate(_id, e)}
+              min={getCurrentDate()}
+              // onBlur={handleBlur}
+              // onKeyDown={validateNumber}
+            />
+          ) : (
+            <>{expiryDate.slice(0, 10)}</>
+          )}
+        </td>
 
         <td>
           <button
@@ -510,6 +539,20 @@ const SingleProduct = ({
           />
         ) : (
           <>{quantity}</>
+        )}
+      </td>
+      <td>
+        {isEdit ? (
+          <input
+            type="date"
+            value={expiryDate.slice(0, 10)}
+            onChange={(e) => handleEditExpiryDate(_id, e)}
+            min={getCurrentDate()}
+            // onBlur={handleBlur}
+            // onKeyDown={validateNumber}
+          />
+        ) : (
+          <>{expiryDate.slice(0, 10)}</>
         )}
       </td>
     </tr>

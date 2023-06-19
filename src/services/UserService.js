@@ -25,12 +25,23 @@ const updateUser = ({ _id, data }) => {
 const deleteUser = (id) => {
   return http.delete(`/user/${id}`);
 };
+const updatePassword = ({ id, data }) => {
+  const { currentPassword, newPassword, confirmPassword } = data;
+  data = {
+    currentPassword,
+    newPassword,
+    confirmPassword,
+  };
+  console.log("data from service", data, id);
+  return http.patch(`/user/changepassword/${id}`, data);
+};
 const UserService = {
   getAllUsers,
   createUser,
   getSingleUser,
   updateUser,
   deleteUser,
+  updatePassword,
 };
 
 export default UserService;

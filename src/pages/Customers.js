@@ -111,7 +111,8 @@ const Customers = () => {
                   <th>Name</th>
                   <th>Address</th>
                   <th>Contact</th>
-                  {user.role === "manager" && <th>Actions</th>}
+                  {/* {user.role === "manager" && <th>Actions</th>} */}
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>{renderedCustomers}</tbody>
