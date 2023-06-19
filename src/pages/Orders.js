@@ -100,7 +100,57 @@ const Orders = () => {
 
   return (
     <>
-      {/* Modal code here */}
+      <div
+        className={` ${
+          isModalOpen ? "  modal-overlay show-modal " : "modal-overlay "
+        }  `}
+      >
+        <div className="modal-container">
+          <div className="container-sm-2">
+            <div className="table-responsive">
+              <div className="table-wrapper">
+                <div className="table-title"></div>
+                <h4>order info</h4>
+                {/* <h4>{detailId}</h4> */}
+                <h5>Customer Name: {orderDetails.customerName}</h5>
+                <h5>Created at: {localDate}</h5>
+                <table className="table table-bordered modal-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Quantity</th>
+                      <th>Price</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {orderDetails.orderItems &&
+                      orderDetails.orderItems.map((item) => {
+                        console.log(item);
+                        const { name, sellingPrice, quantity } = item;
+                        return (
+                          <>
+                            <tr>
+                              <td>{name}</td>
+                              <td>{quantity}</td>
+                              <td>{sellingPrice}</td>
+                            </tr>
+                          </>
+                        );
+                      })}
+                    <tr>
+                      <td colSpan={2}>Total Amount</td>
+                      <td>{orderDetails.total}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <button className="close-modal-btn" onClick={closeModal}>
+            <FaTimes />
+          </button>
+        </div>
+      </div>
 
       <div className="container-lg">
         <div className="table-responsive">
