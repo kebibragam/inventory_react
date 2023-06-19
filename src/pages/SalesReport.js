@@ -98,7 +98,7 @@ const SalesReport = () => {
   const colors = ["#8884d8", "#82ca9d"];
   // Prepare data for line chart
   const lineChartData = weeklyData.map(([date, sales]) => ({ date, sales }));
-
+  console.log("data", weeklyData);
   return (
     <>
       <div className="container">
@@ -166,7 +166,7 @@ const SalesReport = () => {
               <ResponsiveContainer width="100%" height={300}>
                 <PieChart>
                   <Pie
-                    data={pieChartData}
+                    data={pieChartDataWeekly}
                     dataKey="value"
                     nameKey="name"
                     cx="50%"
@@ -197,7 +197,7 @@ const SalesReport = () => {
               <ResponsiveContainer width="100%" height={300}>
                 <PieChart>
                   <Pie
-                    data={pieChartData}
+                    data={pieChartDataMonthly}
                     dataKey="value"
                     nameKey="name"
                     cx="50%"
@@ -227,7 +227,7 @@ const SalesReport = () => {
               <ResponsiveContainer width="100%" height={300}>
                 <PieChart>
                   <Pie
-                    data={pieChartData}
+                    data={pieChartDataQuarterly}
                     dataKey="value"
                     nameKey="name"
                     cx="50%"
@@ -258,7 +258,7 @@ const SalesReport = () => {
               <ResponsiveContainer width="100%" height={300}>
                 <PieChart>
                   <Pie
-                    data={pieChartData}
+                    data={pieChartDataYearly}
                     dataKey="value"
                     nameKey="name"
                     cx="50%"
@@ -287,7 +287,7 @@ const SalesReport = () => {
               <ResponsiveContainer width="100%" height={300}>
                 <PieChart>
                   <Pie
-                    data={pieChartData}
+                    data={pieChartDataTotal}
                     dataKey="value"
                     nameKey="name"
                     cx="50%"

@@ -7,12 +7,12 @@ import { FaEnvelope, FaLocationArrow, FaPhone } from "react-icons/fa";
 const Index = () => {
   return (
     <div className="">
-      <div class="container">
+      <div className="container">
         <h1>Welcome to Aananda Mart</h1>
         <p>We provide quality products and services since August 19, 2019</p>
 
         <h2>Our Products</h2>
-        <ul class="product-list">
+        <ul className="product-list">
           <li>
             <img src={snacksImg} alt="Snacks" />
             <h3>Snacks</h3>
