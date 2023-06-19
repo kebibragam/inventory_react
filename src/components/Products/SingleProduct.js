@@ -50,7 +50,7 @@ const SingleProduct = ({
     if (_id == null || _id == "") {
       return;
     }
-    if (sellingPrice <= purchasePrice) {
+    if (sellingPrice < purchasePrice) {
       alert("Invalid selling price");
       return;
     }
@@ -62,7 +62,13 @@ const SingleProduct = ({
       alert("Invalid expiry date");
       return;
     }
+    console.log("selling", sellingPrice);
+    console.log("pu", purchasePrice);
     if (_id == "new") {
+      if (profit < 1) {
+        alert("Invalid Selling Price");
+        return;
+      }
       setProducts((pre) => {
         let old_data = [...pre];
         console.log("old data", old_data);
@@ -150,16 +156,16 @@ const SingleProduct = ({
         return;
       }
 
-      let sellingPrice = parseFloat(old_data[index].sellingPrice);
+      // let sellingPrice = parseFloat(old_data[index].sellingPrice);
 
       old_data[index].purchasePrice = current_val;
 
       // Calculate profit if selling price is greater than or equal to purchase price
-      if (sellingPrice >= parseFloat(current_val)) {
-        old_data[index].profit = (
-          sellingPrice - parseFloat(current_val)
-        ).toFixed(2);
-      }
+      // if (sellingPrice >= parseFloat(current_val)) {
+      //   old_data[index].profit = (
+      //     sellingPrice - parseFloat(current_val)
+      //   ).toFixed(2);
+      // }
 
       return old_data;
     });
@@ -181,18 +187,21 @@ const SingleProduct = ({
         return;
       }
 
-      let purchasePrice = parseFloat(old_data[index].purchasePrice);
+      // let purchasePrice = parseFloat(old_data[index].purchasePrice);
 
       // Validate if selling price is greater than purchase price
-      if (
-        parseFloat(current_val) >= purchasePrice &&
-        parseFloat(current_val) > 0
-      ) {
-        old_data[index].sellingPrice = current_val;
-        old_data[index].profit = (
-          parseFloat(current_val) - purchasePrice
-        ).toFixed(2);
+      // if (
+      //   parseFloat(current_val) >= purchasePrice &&
+      //   parseFloat(current_val) > 0
+      // ) {
+      old_data[index].sellingPrice = current_val;
+
+      old_data[index].profit = parseFloat(current_val) - purchasePrice;
+      if (old_data[index].profit < 0) {
+        old_data[index].profit = 0;
       }
+      old_data[index].profit = old_data[index].profit.toFixed(2);
+      // }
       return old_data;
     });
   }
@@ -431,13 +440,13 @@ const SingleProduct = ({
           {isEdit ? (
             <input
               type="number"
-              value={profit}
+              value={profit < 0 ? 0 : profit}
               // onChange={(e) => handleEditSellingPrice(_id, e)}
               // onBlur={handleBlur}
               disabled
             />
           ) : (
-            <>{profit}</>
+            <>{profit < 0 ? 0 : profit}</>
           )}
         </td>
 

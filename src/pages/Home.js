@@ -75,6 +75,7 @@ const Home = () => {
     .filter((product) =>
       product.name.toLowerCase().includes(searchTerm.toLowerCase())
     )
+    .sort((a, b) => b.soldQuantity - a.soldQuantity)
     .slice(0, 10);
 
   const handleCustomerIdChange = (event) => {
