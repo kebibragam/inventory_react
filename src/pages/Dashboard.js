@@ -69,6 +69,7 @@ const Dashboard = () => {
               <table className="table table-bordered">
                 <thead>
                   <tr>
+                    <th>Id</th>
                     <th>Name</th>
                     <th>Quantity</th>
                     <th>Price</th>
@@ -77,9 +78,11 @@ const Dashboard = () => {
                 <tbody>
                   {lowStockProduct &&
                     lowStockProduct.map((product) => {
-                      const { _id, name, sellingPrice, quantity } = product;
+                      const { _id, number, name, sellingPrice, quantity } =
+                        product;
                       return (
                         <tr key={_id}>
+                          <td>{number}</td>
                           <td>{name}</td>
                           <td>{quantity}</td>
                           <td>{sellingPrice}</td>
@@ -109,6 +112,7 @@ const Dashboard = () => {
               <table className="table table-bordered">
                 <thead>
                   <tr>
+                    <th>Id</th>
                     <th>Name</th>
                     <th>Expiry Date</th>
                     <th>Quantity</th>
@@ -117,9 +121,11 @@ const Dashboard = () => {
                 <tbody>
                   {expiryProduct &&
                     expiryProduct.map((product) => {
-                      const { _id, name, expiryDate, quantity } = product;
+                      const { _id, number, name, expiryDate, quantity } =
+                        product;
                       return (
                         <tr key={_id}>
+                          <td>{number}</td>
                           <td>{name}</td>
                           <td>{expiryDate.slice(0, 10)}</td>
                           <td>{quantity}</td>

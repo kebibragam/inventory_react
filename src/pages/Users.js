@@ -13,7 +13,7 @@ const Users = () => {
         _id: "new",
         name: "",
         email: "",
-        coontact: 0,
+        contact: 0,
         role: "cashier",
         password: "password",
         isEdit: "true",

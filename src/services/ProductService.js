@@ -27,12 +27,20 @@ const updateProduct = ({ _id, data }) => {
 const deleteProduct = (_id) => {
   return http.delete(`/product/${_id}`);
 };
+const addQuantity = ({ _id, quantity }) => {
+  console.log(_id, quantity);
+  const data = {
+    quantity,
+  };
+  return http.patch(`/product/quantity/${_id}`, data);
+};
 const ProductService = {
   getAllProducts,
   createProduct,
   getSingleProduct,
   updateProduct,
   deleteProduct,
+  addQuantity,
 };
 
 export default ProductService;

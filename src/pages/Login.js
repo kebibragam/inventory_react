@@ -33,7 +33,13 @@ const Login = () => {
         AuthService.login(credentials)
           .then((response) => addUser(response.data.user))
           .then((response) => setRole(response.data.user.role))
-          .catch((error) => console.log(error));
+          .catch((error) => {
+            console.log(error);
+            // if (error) {
+            //   alert("Invalid email,password");
+            // }
+            return;
+          });
 
         // console.log(JSON.stringify(response?.data));
         // const token = await response.data.token;
@@ -41,6 +47,7 @@ const Login = () => {
         // const userId = await response.data.user.userId;
         // const role = await response.data.user.role;
         // addUser({ token, userId, name, role });
+
         if (role === "cashier") {
           navigate("/home");
         }

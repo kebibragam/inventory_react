@@ -22,6 +22,7 @@ const Products = () => {
         expiryDate: getCurrentDate(),
         purchasePrice: 0,
         profit: 0,
+
         isEdit: "true",
       };
       old_data = old_data.map((a) => ({ ...a, isEdit: false }));
@@ -43,7 +44,7 @@ const Products = () => {
           ...a,
           isEdit: false,
         }));
-        data.sort((a, b) => a.quantity - b.quantity);
+        data.sort((a, b) => a.number - b.number);
         setProducts(data);
 
         const totalPages = Math.ceil(data.length / 10);
@@ -66,8 +67,13 @@ const Products = () => {
     const startIndex = (currentPage - 1) * 10;
     const endIndex = startIndex + 10;
     const currentProducts = products
-      .filter((product) =>
-        product.name.toLowerCase().includes(searchQuery.toLowerCase())
+      .filter(
+        (product) =>
+          product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          product.number
+            .toString()
+            .toLowerCase()
+            .includes(searchQuery.toLowerCase())
       )
       .slice(startIndex, endIndex);
 
@@ -118,6 +124,7 @@ const Products = () => {
               <table className="table table-bordered">
                 <thead>
                   <tr>
+                    <th>Id</th>
                     <th>Name</th>
                     <th>Purchase Price</th>
                     <th>Selling Price</th>
@@ -169,7 +176,7 @@ const Products = () => {
                     type="text"
                     value={searchQuery}
                     onChange={handleSearchInputChange}
-                    placeholder="Search by name"
+                    placeholder="Search by id or name"
                   />
                 </div>
               </div>
@@ -178,6 +185,7 @@ const Products = () => {
             <table className="table table-bordered">
               <thead>
                 <tr>
+                  <th>Id</th>
                   <th>Name</th>
                   <th>Price</th>
                   <th>Quantity</th>

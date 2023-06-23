@@ -113,6 +113,7 @@ const Orders = () => {
                 <h4>order info</h4>
                 {/* <h4>{detailId}</h4> */}
                 <h5>Customer Name: {orderDetails.customerName}</h5>
+                <h5>Order id: {orderDetails._id}</h5>
                 <h5>Created at: {localDate}</h5>
                 <table className="table table-bordered modal-table">
                   <thead>

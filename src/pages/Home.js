@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useProductFetch from "../hooks/useProductFetch";
 
 import OrderService from "../services/OrderService";
@@ -8,6 +8,8 @@ const Home = () => {
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [customerId, setCustomerId] = useState("");
+  const [successMessageVisible, setSuccessMessageVisible] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleProductSelect = (productId) => {
     const selectedProductIndex = selectedProducts.findIndex(
@@ -95,21 +97,50 @@ const Home = () => {
       .then((res) => {
         setSelectedProducts([]);
         setCustomerId("");
+        setSuccessMessageVisible(true); // Show success message
+        setTimeout(() => {
+          setSuccessMessageVisible(false); // Hide success message after 1 second
+        }, 1000);
       })
       .catch((err) => {
         if (err) {
-          alert("Invalid customer id");
-          return;
+          setErrorMessage("Invalid customer id"); // Set error message
+          setTimeout(() => {
+            setErrorMessage(""); // Clear error message after 1 second
+          }, 1000);
         }
       });
 
     // Reset selected products and customer ID
   };
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+    handleCreateOrder();
+  };
 
+  useEffect(() => {
+    let timeout;
+    if (successMessageVisible) {
+      timeout = setTimeout(() => {
+        setSuccessMessageVisible(false); // Hide success message after 1 second
+      }, 1000);
+    }
+    return () => clearTimeout(timeout);
+  }, [successMessageVisible]);
   return (
     <div className="container mt-5">
       {/* <h1 className="mb-4">Order Taking Page</h1> */}
-
+      {/* ... */}
+      {successMessageVisible && (
+        <div className="alert alert-success mt-4" role="alert">
+          Order created successfully!
+        </div>
+      )}
+      {errorMessage && (
+        <div className="alert alert-danger mt-4" role="alert">
+          {errorMessage}
+        </div>
+      )}
       <div className="row">
         <div className="col-md-6">
           <h2>Product List</h2>
@@ -129,6 +160,7 @@ const Home = () => {
                 className="list-group-item d-flex justify-content-between align-items-center"
               >
                 <div>
+                  <span className="product-number">{product.number}. </span>
                   {product.name} - Rs {product.sellingPrice}
                 </div>
                 <div>
@@ -157,6 +189,7 @@ const Home = () => {
                 className="list-group-item d-flex justify-content-between align-items-center"
               >
                 <div>
+                  <span className="product-number">{product.number}. </span>
                   {product.name} - Rs {product.sellingPrice} x{" "}
                   {product.quantity}
                 </div>
@@ -173,22 +206,38 @@ const Home = () => {
           </ul>
 
           <h2 className="mt-4">Total Payable Amount: Rs {calculateTotal()}</h2>
-
-          <div className="mt-4">
-            <label htmlFor="customerId" className="form-label">
-              Customer ID:
-            </label>
-            <input
-              type="text"
-              id="customerId"
-              className="form-control"
-              value={customerId}
-              onChange={handleCustomerIdChange}
-            />
-          </div>
-          <button className="btn btn-primary mt-4" onClick={handleCreateOrder}>
-            Create Order
-          </button>
+          <form onSubmit={handleFormSubmit}>
+            <div className="mt-4">
+              <label htmlFor="customerId" className="form-label">
+                Customer ID:
+              </label>
+              {selectedProducts.length <= 0 ? (
+                <input
+                  type="text"
+                  id="customerId"
+                  className="form-control"
+                  value={customerId}
+                  onChange={handleCustomerIdChange}
+                  disabled
+                />
+              ) : (
+                <input
+                  type="text"
+                  id="customerId"
+                  className="form-control"
+                  value={customerId}
+                  onChange={handleCustomerIdChange}
+                />
+              )}
+            </div>
+            <button
+              type="submit"
+              className="btn btn-primary mt-4"
+              // onClick={handleCreateOrder}
+            >
+              Create Order
+            </button>
+          </form>
         </div>
       </div>
     </div>

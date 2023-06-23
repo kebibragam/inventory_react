@@ -45,6 +45,7 @@ const SingleUser = ({
     if (_id == null || _id == "") {
       return;
     }
+
     if (_id == "new") {
       setUsers((pre) => {
         let old_data = [...pre];
@@ -55,11 +56,17 @@ const SingleUser = ({
           (user) => user._id === _id && delete user._id && delete user.isEdit
         );
         // console.log("updated data", data[0]);
-        UserService.createUser(data[0]).then((response) => {
-          let tempUser = response.data.user;
-          tempUser = { ...tempUser, isEdit: false };
-          old_data.push(tempUser);
-        });
+        UserService.createUser(data[0])
+          .then((response) => {
+            let tempUser = response.data.user;
+            tempUser = { ...tempUser, isEdit: false };
+            old_data.push(tempUser);
+          })
+          .catch((err) =>
+            err.response.status === 400
+              ? alert("provide unique email and phone number")
+              : alert("Something went wrong")
+          );
         old_data = old_data.filter((a) => a._id !== undefined);
         console.log(old_data, "new");
 

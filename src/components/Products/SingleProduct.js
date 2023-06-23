@@ -1,5 +1,5 @@
-import React, { useContext, useRef } from "react";
-import { FaEdit, FaSave } from "react-icons/fa";
+import React, { useContext, useRef, useState } from "react";
+import { FaEdit, FaPlus, FaSave, FaTimes } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa";
 import getCurrentDate from "../../utils/currentDate";
 
@@ -14,11 +14,14 @@ const SingleProduct = ({
   profit,
   quantity,
   expiryDate,
+  number,
   isEdit,
   setProducts,
   retrieveProducts,
 }) => {
   const { user } = useContext(AuthContext);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [updateQuantity, setUpdateQuantity] = useState(0);
   const edit_focus = useRef();
 
   const editProduct = (_id) => {
@@ -239,6 +242,33 @@ const SingleProduct = ({
       return new_data;
     });
   }
+  function addQuantity(e, _id) {
+    e.preventDefault();
+    setIsModalOpen(true);
+    if (_id == null || _id === "") {
+      return;
+    }
+    console.log(_id, updateQuantity);
+
+    const quantity = updateQuantity;
+
+    setProducts((pre) => {
+      let old_data = [...pre];
+      old_data = old_data.map((a) => ({ ...a }));
+      let index = old_data.map((a) => a._id).findIndex((a) => a === _id);
+
+      if (index === -1) {
+        return;
+      }
+
+      ProductService.addQuantity({ _id, quantity })
+        .then(() => retrieveProducts())
+        .then((err) => console.log(err));
+      setIsModalOpen(false);
+      return old_data;
+    });
+  }
+
   const handleEditExpiryDate = (_id, e) => {
     const newExpiryDate = e.target.value.slice(0, 10);
 
@@ -272,9 +302,59 @@ const SingleProduct = ({
     }
   };
   // console.log("id", _id);
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  if (isModalOpen) {
+    return (
+      <div
+        className={` ${
+          isModalOpen ? "  modal-overlay show-modal " : "modal-overlay "
+        }  `}
+      >
+        <div className="modal-container dark-blue">
+          <div className="container-sm-2">
+            <div className="modal-content ">
+              <h2 style={{ marginBottom: "1.5rem" }}>Add Quantity</h2>
+              <form>
+                <div className="form-group">
+                  <label htmlFor="name">Enter Quantity</label>
+                  <input
+                    type="text"
+                    id="quantity"
+                    name="quantity"
+                    onChange={(e) => {
+                      setUpdateQuantity(e.target.value);
+                    }}
+                    required
+                    className="form-control"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  className="btn btn-primary"
+                  onClick={(e) => {
+                    addQuantity(e, _id);
+                  }}
+                >
+                  Submit
+                </button>
+              </form>
+            </div>
+          </div>
+          <button className="close-modal-btn" onClick={handleCloseModal}>
+            <FaTimes />
+          </button>
+        </div>
+      </div>
+    );
+  }
   if (_id === "new") {
     return (
       <tr key={_id}>
+        <td>{number}</td>
         <td>
           {isEdit ? (
             <input
@@ -391,6 +471,14 @@ const SingleProduct = ({
           >
             <FaTrash />
           </button>
+          <button
+            className=" button-icon"
+            title="Add quantity"
+            data-toggle="tooltip"
+            onClick={() => addQuantity(_id)}
+          >
+            <FaPlus />
+          </button>
         </td>
       </tr>
     );
@@ -398,6 +486,7 @@ const SingleProduct = ({
   if (user.role === "manager") {
     return (
       <tr key={_id}>
+        <td>{number}</td>
         <td>
           {isEdit ? (
             <input
@@ -496,12 +585,22 @@ const SingleProduct = ({
           >
             <FaTrash />
           </button>
+          <button
+            className=" button-icon"
+            title="Add Quantity"
+            data-toggle="tooltip"
+            // onClick={() => addQuantity(_id)}
+            onClick={() => setIsModalOpen(true)}
+          >
+            <FaPlus />
+          </button>
         </td>
       </tr>
     );
   }
   return (
     <tr key={_id}>
+      <td>{number}</td>
       <td>
         {isEdit ? (
           <input
