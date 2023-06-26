@@ -1,3 +1,14 @@
+Live: https://aanandamart.netlify.app
+
+
+Login credentials 
+For manager
+email= admin@email.com 
+password = password
+For cashier
+email = test@mail.com
+password = password
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
